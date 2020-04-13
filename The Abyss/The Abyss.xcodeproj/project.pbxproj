@@ -15,6 +15,7 @@
 		5D806D2F244456E100B71347 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D2D244456E100B71347 /* Main.storyboard */; };
 		5D806D31244456E400B71347 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D30244456E400B71347 /* Assets.xcassets */; };
 		5D806D34244456E400B71347 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D32244456E400B71347 /* LaunchScreen.storyboard */; };
+		5DC9421724445A980085CF68 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC9421624445A980085CF68 /* MainMenuScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		5D806D30244456E400B71347 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D806D33244456E400B71347 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D806D35244456E400B71347 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5DC9421624445A980085CF68 /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				5D806D25244456E100B71347 /* GameScene.sks */,
 				5D806D27244456E100B71347 /* Actions.sks */,
 				5D806D29244456E100B71347 /* GameScene.swift */,
+				5DC9421624445A980085CF68 /* MainMenuScene.swift */,
 				5D806D2B244456E100B71347 /* GameViewController.swift */,
 				5D806D2D244456E100B71347 /* Main.storyboard */,
 				5D806D30244456E400B71347 /* Assets.xcassets */,
@@ -148,6 +151,7 @@
 			files = (
 				5D806D2A244456E100B71347 /* GameScene.swift in Sources */,
 				5D806D2C244456E100B71347 /* GameViewController.swift in Sources */,
+				5DC9421724445A980085CF68 /* MainMenuScene.swift in Sources */,
 				5D806D24244456E100B71347 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
