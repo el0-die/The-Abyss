@@ -10,10 +10,11 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    private let submarine = SKSpriteNode(imageNamed: "submarine")
+    private let submarine = SKSpriteNode(imageNamed: "submarine1")
     private var invincible = false
     private var lives = 5
     private let livesLabel = SKLabelNode()
+    private let submarineAnimation: SKAction
     
     private var lastUpdateTime: TimeInterval = 0
     private var dt: TimeInterval = 0
@@ -29,15 +30,28 @@ class GameScene: SKScene {
 //    MARK: - Override
     
     override init(size: CGSize) {
-        let maxAspectRatio:CGFloat = 2.16
+        let maxAspectRatio:CGFloat = 16.0/9.0
         let playableHeight = size.width / maxAspectRatio
         let playableMargin = (size.height-playableHeight)/2.0
         playableRect = CGRect(x: 0, y: playableMargin,
-                              width: size.width,
-                              height: playableHeight)
-        
+                            width: size.width,
+                            height: playableHeight)
+      // 1
+        var textures:[SKTexture] = []
+      // 2
+        for i in 1...6 {
+            textures.append(SKTexture(imageNamed: "submarine\(i)"))
+        }
+      // 3
+        textures.append(textures[2])
+        textures.append(textures[1])
+
+      // 4
+        submarineAnimation = SKAction.animate(with: textures,
+                                           timePerFrame: 0.1)
+
         super.init(size: size)
-      }
+    }
       
       required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -87,11 +101,11 @@ class GameScene: SKScene {
     
     override func touchesMoved(_ touches: Set<UITouch>,
                                with event: UIEvent?) {
-      guard let touch = touches.first else {
-        return
-      }
-      let touchLocation = touch.location(in: self)
-      sceneTouched(touchLocation: touchLocation)
+        guard let touch = touches.first else {
+            return
+        }
+        let touchLocation = touch.location(in: self)
+        sceneTouched(touchLocation: touchLocation)
     }
 
 //    MARK: - Submarine
@@ -103,6 +117,7 @@ class GameScene: SKScene {
       }
 
     private func moveSubmarineToward(location: CGPoint) {
+        startSubmarineAnimation()
         let offset = location - submarine.position
         let direction = offset.normalized()
         velocity = direction * submarineMovePointsPerSec
@@ -150,6 +165,18 @@ class GameScene: SKScene {
     private func sceneTouched(touchLocation:CGPoint) {
         lastTouchLocation = touchLocation
         moveSubmarineToward(location: touchLocation)
+    }
+
+    func startSubmarineAnimation() {
+      if submarine.action(forKey: "animation") == nil {
+        submarine.run(
+          SKAction.repeatForever(submarineAnimation),
+          withKey: "animation")
+      }
+    }
+
+    func stopSubmarineAnimation() {
+      submarine.removeAction(forKey: "animation")
     }
 
 //    MARK: - Enemy
