@@ -37,17 +37,17 @@ class GameScene: SKScene {
                             width: size.width,
                             height: playableHeight)
       // 1
-        var textures:[SKTexture] = []
+        var submarineTexture:[SKTexture] = []
       // 2
         for i in 1...6 {
-            textures.append(SKTexture(imageNamed: "submarine\(i)"))
+            submarineTexture.append(SKTexture(imageNamed: "submarine\(i)"))
         }
       // 3
-        textures.append(textures[2])
-        textures.append(textures[1])
+        submarineTexture.append(submarineTexture[2])
+        submarineTexture.append(submarineTexture[1])
 
       // 4
-        submarineAnimation = SKAction.animate(with: textures,
+        submarineAnimation = SKAction.animate(with: submarineTexture,
                                            timePerFrame: 0.1)
 
         super.init(size: size)
