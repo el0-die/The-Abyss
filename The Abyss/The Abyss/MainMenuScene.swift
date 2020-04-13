@@ -11,7 +11,7 @@ import SpriteKit
 
 class MainMenuScene: SKScene {
     override func didMove(to view: SKView) {
-        let background = SKSpriteNode(imageNamed: "background2")
+        let background = SKSpriteNode(imageNamed: "background")
         background.position = CGPoint(x: size.width/2, y: size.height/2)
         addChild(background)
     }
