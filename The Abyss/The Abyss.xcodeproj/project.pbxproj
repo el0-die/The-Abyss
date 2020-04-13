@@ -14,7 +14,6 @@
 		5D806D31244456E400B71347 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D30244456E400B71347 /* Assets.xcassets */; };
 		5D806D34244456E400B71347 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D32244456E400B71347 /* LaunchScreen.storyboard */; };
 		5DC9421724445A980085CF68 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC9421624445A980085CF68 /* MainMenuScene.swift */; };
-		5DC9421924445DF60085CF68 /* GLIMSTIC.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 5DC9421824445DF60085CF68 /* GLIMSTIC.TTF */; };
 		5DC9421B2444613D0085CF68 /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC9421A2444613D0085CF68 /* MyUtils.swift */; };
 /* End PBXBuildFile section */
 
@@ -28,7 +27,6 @@
 		5D806D33244456E400B71347 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D806D35244456E400B71347 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5DC9421624445A980085CF68 /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
-		5DC9421824445DF60085CF68 /* GLIMSTIC.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = GLIMSTIC.TTF; sourceTree = "<group>"; };
 		5DC9421A2444613D0085CF68 /* MyUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,7 +69,6 @@
 				5D806D30244456E400B71347 /* Assets.xcassets */,
 				5D806D32244456E400B71347 /* LaunchScreen.storyboard */,
 				5D806D35244456E400B71347 /* Info.plist */,
-				5DC9421824445DF60085CF68 /* GLIMSTIC.TTF */,
 			);
 			path = "The Abyss";
 			sourceTree = "<group>";
@@ -134,7 +131,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5DC9421924445DF60085CF68 /* GLIMSTIC.TTF in Resources */,
 				5D806D2F244456E100B71347 /* Main.storyboard in Resources */,
 				5D806D31244456E400B71347 /* Assets.xcassets in Resources */,
 				5D806D34244456E400B71347 /* LaunchScreen.storyboard in Resources */,

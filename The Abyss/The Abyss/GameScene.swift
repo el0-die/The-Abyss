@@ -13,7 +13,7 @@ class GameScene: SKScene {
     private let submarine = SKSpriteNode(imageNamed: "submarine")
     private var invincible = false
     private var lives = 5
-    private let livesLabel = SKLabelNode(fontNamed: "Glimstic")
+    private let livesLabel = SKLabelNode()
     
     private var lastUpdateTime: TimeInterval = 0
     private var dt: TimeInterval = 0
@@ -140,7 +140,17 @@ class GameScene: SKScene {
         livesLabel.position = CGPoint(x: -playableRect.size.width/2 + CGFloat(20),
                                       y: -playableRect.size.height/2 + CGFloat(20))
         cameraNode.addChild(livesLabel)
-      }
+    }
+
+    private func move(sprite: SKSpriteNode, velocity: CGPoint) {
+        let amountToMove = velocity * CGFloat(dt)
+        sprite.position += amountToMove
+    }
+
+    private func sceneTouched(touchLocation:CGPoint) {
+        lastTouchLocation = touchLocation
+        moveSubmarineToward(location: touchLocation)
+    }
 
 //    MARK: - Enemy
 
@@ -167,16 +177,6 @@ class GameScene: SKScene {
         let spawnEnemiesActionForever = SKAction.repeatForever(spawnEnemyActionSequence)
 
         run(spawnEnemiesActionForever)
-    }
-
-    private func move(sprite: SKSpriteNode, velocity: CGPoint) {
-        let amountToMove = velocity * CGFloat(dt)
-        sprite.position += amountToMove
-    }
-
-    private func sceneTouched(touchLocation:CGPoint) {
-        lastTouchLocation = touchLocation
-        moveSubmarineToward(location: touchLocation)
     }
 
 //    MARK: - Collision Handler
@@ -243,28 +243,25 @@ class GameScene: SKScene {
         
         let background2 = SKSpriteNode(imageNamed: "background")
         background2.anchorPoint = CGPoint.zero
-        background2.position =
-          CGPoint(x: background1.size.width, y: 0)
+        background2.position = CGPoint(x: background1.size.width, y: 0)
         backgroundNode.addChild(background2)
-        
-        backgroundNode.size = CGSize(
-          width: background1.size.width + background2.size.width,
-          height: background1.size.height)
+        backgroundNode.size = CGSize(width: background1.size.width + background2.size.width,
+                                     height: background1.size.height)
         return backgroundNode
     }
 
 //    MARK: - Camera
 
     private var cameraRect : CGRect {
-      let x = cameraNode.position.x - size.width/2 + (size.width - playableRect.width)/2
-      let y = cameraNode.position.y - size.height/2 + (size.height - playableRect.height)/2
-      return CGRect(x: x, y: y, width: playableRect.width, height: playableRect.height)
+        let x = cameraNode.position.x - size.width/2 + (size.width - playableRect.width)/2
+        let y = cameraNode.position.y - size.height/2 + (size.height - playableRect.height)/2
+        return CGRect(x: x, y: y, width: playableRect.width, height: playableRect.height)
     }
 
     private func setupCamera() {
-      addChild(cameraNode)
-      camera = cameraNode
-      cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
+        addChild(cameraNode)
+        camera = cameraNode
+        cameraNode.position = CGPoint(x: size.width/2, y: size.height/2)
     }
 
     private func moveCamera() {
