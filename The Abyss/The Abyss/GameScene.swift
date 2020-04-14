@@ -36,26 +36,26 @@ class GameScene: SKScene {
         playableRect = CGRect(x: 0, y: playableMargin,
                             width: size.width,
                             height: playableHeight)
-      // 1
-        var submarineTexture:[SKTexture] = []
-      // 2
-        for i in 1...6 {
-            submarineTexture.append(SKTexture(imageNamed: "submarine\(i)"))
-        }
-      // 3
-        submarineTexture.append(submarineTexture[2])
-        submarineTexture.append(submarineTexture[1])
 
-      // 4
-        submarineAnimation = SKAction.animate(with: submarineTexture,
-                                           timePerFrame: 0.1)
+        
+
+        // Submarine Animation
+        var submarineTextures:[SKTexture] = []
+        for i in 1...6 {
+            submarineTextures.append(SKTexture(imageNamed: "submarine\(i)"))
+        }
+        submarineTextures.append(submarineTextures[2])
+        submarineTextures.append(submarineTextures[1])
+        submarineAnimation = SKAction.animate(with: submarineTextures, timePerFrame: 0.1)
+
+        // TODO: Enemy Animation
 
         super.init(size: size)
     }
       
-      required init(coder aDecoder: NSCoder) {
+    required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-      }
+    }
 
     override func update(_ currentTime: TimeInterval) {
         if lastUpdateTime > 0 {
@@ -67,7 +67,6 @@ class GameScene: SKScene {
         move(sprite: submarine, velocity: velocity)
       
         boundsCheckSubmarine()
-      // checkCollisions()
 
         moveCamera()
         livesLabel.text = "Lives: \(lives)"
@@ -90,17 +89,15 @@ class GameScene: SKScene {
         checkCollisions()
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>,
-                               with event: UIEvent?) {
-      guard let touch = touches.first else {
-        return
-      }
-      let touchLocation = touch.location(in: self)
-      sceneTouched(touchLocation: touchLocation)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else {
+            return
+        }
+        let touchLocation = touch.location(in: self)
+        sceneTouched(touchLocation: touchLocation)
     }
     
-    override func touchesMoved(_ touches: Set<UITouch>,
-                               with event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {
             return
         }
@@ -167,22 +164,21 @@ class GameScene: SKScene {
         moveSubmarineToward(location: touchLocation)
     }
 
-    func startSubmarineAnimation() {
-      if submarine.action(forKey: "animation") == nil {
-        submarine.run(
-          SKAction.repeatForever(submarineAnimation),
-          withKey: "animation")
-      }
+    private func startSubmarineAnimation() {
+        if submarine.action(forKey: "animation") == nil {
+            submarine.run(SKAction.repeatForever(submarineAnimation),
+                          withKey: "animation")
+        }
     }
 
-    func stopSubmarineAnimation() {
-      submarine.removeAction(forKey: "animation")
+    private func stopSubmarineAnimation() {
+        submarine.removeAction(forKey: "animation")
     }
 
 //    MARK: - Enemy
 
     private func spawnEnemy() {
-        let enemy = SKSpriteNode(imageNamed: "enemy")
+        let enemy = SKSpriteNode(imageNamed: "pulp1")
         enemy.name = "enemy"
         enemy.position = CGPoint(x: cameraRect.maxX + enemy.size.width/2, y: CGFloat.random(
             min: cameraRect.minY + enemy.size.height/2, max: cameraRect.maxY - enemy.size.height/2))
@@ -199,8 +195,8 @@ class GameScene: SKScene {
             self?.spawnEnemy()
         }
 
-        let waitTwoSecondAction = SKAction.wait(forDuration: spawnTimeInSecond)
-        let spawnEnemyActionSequence = SKAction.sequence([singleSpawnEnemyAction, waitTwoSecondAction])
+        let waitBeforeAction = SKAction.wait(forDuration: spawnTimeInSecond)
+        let spawnEnemyActionSequence = SKAction.sequence([singleSpawnEnemyAction, waitBeforeAction])
         let spawnEnemiesActionForever = SKAction.repeatForever(spawnEnemyActionSequence)
 
         run(spawnEnemiesActionForever)
@@ -208,7 +204,7 @@ class GameScene: SKScene {
 
 //    MARK: - Collision Handler
 
-    func submarineHit(enemy: SKSpriteNode) {
+    private func submarineHit(enemy: SKSpriteNode) {
         invincible = true
         let blinkTimes = 10.0
         let duration = 3.0
@@ -226,7 +222,7 @@ class GameScene: SKScene {
         livesLabel.text = "Lives: \(lives)"
       }
       
-    func checkCollisions() {
+    private func checkCollisions() {
         if invincible {
             return
         }

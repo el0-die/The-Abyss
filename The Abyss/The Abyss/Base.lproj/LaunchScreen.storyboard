@@ -15,16 +15,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="GbA-bI-rc3">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" image="launchscreen" translatesAutoresizingMaskIntoConstraints="NO" id="eHK-VC-B2b">
                                 <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="GbA-bI-rc3" secondAttribute="trailing" id="5te-je-QMH"/>
-                            <constraint firstAttribute="bottom" secondItem="GbA-bI-rc3" secondAttribute="bottom" id="5wq-6S-lUw"/>
-                            <constraint firstItem="GbA-bI-rc3" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="6g9-5A-64m"/>
-                            <constraint firstItem="GbA-bI-rc3" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="oKN-Cl-tP1"/>
+                            <constraint firstItem="eHK-VC-B2b" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="KyP-lh-Vds"/>
+                            <constraint firstItem="eHK-VC-B2b" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Kz4-ys-RRh"/>
+                            <constraint firstAttribute="bottom" secondItem="eHK-VC-B2b" secondAttribute="bottom" id="XLx-82-lHI"/>
+                            <constraint firstAttribute="trailing" secondItem="eHK-VC-B2b" secondAttribute="trailing" id="drj-7v-dQN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -35,6 +35,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background" width="2048" height="1536"/>
+        <image name="launchscreen" width="3200" height="2114"/>
     </resources>
 </document>
