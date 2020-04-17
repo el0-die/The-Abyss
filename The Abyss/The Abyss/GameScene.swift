@@ -10,43 +10,11 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    private let submarine = SKSpriteNode(imageNamed: "submarine1")
-    private var invincible = false
-    private var lives = 5
-    private let livesLabel = SKLabelNode()
-    private let submarineAnimation: SKAction
-    
-    private var lastUpdateTime: TimeInterval = 0
-    private var dt: TimeInterval = 0
-    private let playableRect: CGRect
-    private var lastTouchLocation: CGPoint?
-    
-    private let submarineMovePointsPerSec: CGFloat = 480.0
-    private var velocity = CGPoint.zero
-    
-    private let cameraNode = SKCameraNode()
-    private let cameraMovePointsPerSec: CGFloat = 200.0
 
 //    MARK: - Override
     
     override init(size: CGSize) {
-        let maxAspectRatio:CGFloat = 16.0/9.0
-        let playableHeight = size.width / maxAspectRatio
-        let playableMargin = (size.height-playableHeight)/2.0
-        playableRect = CGRect(x: 0, y: playableMargin,
-                            width: size.width,
-                            height: playableHeight)
-
         
-
-        // Submarine Animation
-        var submarineTextures:[SKTexture] = []
-        for i in 1...6 {
-            submarineTextures.append(SKTexture(imageNamed: "submarine\(i)"))
-        }
-        submarineTextures.append(submarineTextures[2])
-        submarineTextures.append(submarineTextures[1])
-        submarineAnimation = SKAction.animate(with: submarineTextures, timePerFrame: 0.1)
 
         // TODO: Enemy Animation
 
@@ -56,7 +24,7 @@ class GameScene: SKScene {
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     override func update(_ currentTime: TimeInterval) {
         if lastUpdateTime > 0 {
             dt = currentTime - lastUpdateTime
@@ -70,16 +38,21 @@ class GameScene: SKScene {
 
         moveCamera()
         livesLabel.text = "Lives: \(lives)"
+
+        displayGameOverScene()
+
     }
 
     override func didMove(to view: SKView) {
         super.didMove(to: view)
     
+        setupSubmarineAnimation()
         setupBackground()
         
         setupSubmarine()
         setupSpawnEnemyAction(spawnTimeInSecond: 2.0)
         
+        setupPlayableRectangle(size)
         setupCamera()
         
         setupLivesLabel()
@@ -90,34 +63,79 @@ class GameScene: SKScene {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else {
-            return
-        }
-        let touchLocation = touch.location(in: self)
-        sceneTouched(touchLocation: touchLocation)
+        handleTouchesEvent(touches: touches)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else {
-            return
-        }
+        handleTouchesEvent(touches: touches)
+    }
+    
+    // MARK: - Private
+    
+    
+    // MARK: Private - Properties
+    
+    private let submarine = SKSpriteNode(imageNamed: "submarine1")
+    private var invincible = false
+    private var lives = 5
+    private let livesLabel = SKLabelNode()
+    private var submarineAnimation: SKAction?
+    private var gameOver = false
+    
+    private var lastUpdateTime: TimeInterval = 0
+    private var dt: TimeInterval = 0
+    private var playableRect: CGRect?
+    private var lastTouchLocation: CGPoint?
+    
+    private let submarineMovePointsPerSec: CGFloat = 480.0
+    private var velocity = CGPoint.zero
+    
+    private let cameraNode = SKCameraNode()
+    private let cameraMovePointsPerSec: CGFloat = 200.0
+    
+    
+    // MARK: Private - Methods
+    
+    private func handleTouchesEvent(touches: Set<UITouch>) {
+        guard let touch = touches.first else { return }
         let touchLocation = touch.location(in: self)
         sceneTouched(touchLocation: touchLocation)
     }
 
-//    MARK: - Submarine
+    private func setupPlayableRectangle(_ size: CGSize) {
+        let maxAspectRatio: CGFloat = 16.0 / 9.0
+        let playableHeight = size.width / maxAspectRatio
+        let playableMargin = (size.height - playableHeight) / 2.0
+        playableRect = CGRect(x: 0, y: playableMargin,
+                              width: size.width,
+                              height: playableHeight)
+    }
     
+    // MARK: Submarine
+
     private func setupSubmarine() {
         submarine.position = CGPoint(x: 400, y: 400)
         submarine.zPosition = 100
         addChild(submarine)
-      }
+    }
 
     private func moveSubmarineToward(location: CGPoint) {
         startSubmarineAnimation()
         let offset = location - submarine.position
         let direction = offset.normalized()
         velocity = direction * submarineMovePointsPerSec
+    }
+
+    private func setupSubmarineAnimation() {
+        // Submarine Animation
+        var submarineTextures: [SKTexture] = []
+        let numberOfSubmarineTexture = 6
+        for textureIndex in 1...numberOfSubmarineTexture {
+            submarineTextures.append(SKTexture(imageNamed: "submarine\(textureIndex)"))
+        }
+        submarineTextures.append(submarineTextures[2])
+        submarineTextures.append(submarineTextures[1])
+        submarineAnimation = SKAction.animate(with: submarineTextures, timePerFrame: 0.1)
     }
 
     private func boundsCheckSubmarine() {
@@ -143,6 +161,7 @@ class GameScene: SKScene {
     }
       
     private func setupLivesLabel() {
+        guard let playableRect = playableRect else { return }
         livesLabel.text = "Lives: \(lives)"
         livesLabel.fontColor = SKColor.white
         livesLabel.fontSize = 100
@@ -165,6 +184,8 @@ class GameScene: SKScene {
     }
 
     private func startSubmarineAnimation() {
+        guard let submarineAnimation = submarineAnimation else { return }
+        
         if submarine.action(forKey: "animation") == nil {
             submarine.run(SKAction.repeatForever(submarineAnimation),
                           withKey: "animation")
@@ -173,6 +194,19 @@ class GameScene: SKScene {
 
     private func stopSubmarineAnimation() {
         submarine.removeAction(forKey: "animation")
+    }
+
+    private func displayGameOverScene() {
+        if lives <= 0 {
+            gameOver = true
+            print("You lose!")
+            
+            let gameOverScene = GameOverScene(size: size)
+            gameOverScene.scaleMode = scaleMode
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            
+            view?.presentScene(gameOverScene, transition: reveal)
+        }
     }
 
 //    MARK: - Enemy
@@ -276,8 +310,9 @@ class GameScene: SKScene {
 //    MARK: - Camera
 
     private var cameraRect : CGRect {
-        let x = cameraNode.position.x - size.width/2 + (size.width - playableRect.width)/2
-        let y = cameraNode.position.y - size.height/2 + (size.height - playableRect.height)/2
+        guard let playableRect = playableRect else { return CGRect()}
+        let x = cameraNode.position.x - size.width / 2 + (size.width - playableRect.width)/2
+        let y = cameraNode.position.y - size.height / 2 + (size.height - playableRect.height)/2
         return CGRect(x: x, y: y, width: playableRect.width, height: playableRect.height)
     }
 

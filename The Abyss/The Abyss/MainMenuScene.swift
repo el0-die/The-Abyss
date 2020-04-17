@@ -16,7 +16,13 @@ class MainMenuScene: SKScene {
         addChild(background)
     }
   
-    private func sceneTapped() {
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        presentGameScene()
+    }
+    
+    
+    private func presentGameScene() {
         let gameScene = GameScene(size: size)
         gameScene.scaleMode = scaleMode
         gameScene.view?.showsPhysics = true
@@ -24,7 +30,4 @@ class MainMenuScene: SKScene {
         view?.presentScene(gameScene, transition: reveal)
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        sceneTapped()
-    }
 }
