@@ -25,9 +25,9 @@ class GameOverScene: SKScene {
     override func didMove(to view: SKView) {
         var background: SKSpriteNode
             if (won) {
-                background = SKSpriteNode(imageNamed: "launchscreen")
+                background = SKSpriteNode(imageNamed: "winscreen")
             } else {
-                    background = SKSpriteNode(imageNamed: "gameover")
+                    background = SKSpriteNode(imageNamed: "gameoverscreen")
             }
 
         background.position = CGPoint(x: size.width/2, y: size.height/2)

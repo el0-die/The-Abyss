@@ -277,9 +277,9 @@ class GameScene: SKScene {
         killCounterLabel.fontColor = SKColor.white
         killCounterLabel.fontSize = 100
         killCounterLabel.zPosition = 100
-        killCounterLabel.horizontalAlignmentMode = .left
+        killCounterLabel.horizontalAlignmentMode = .right
         killCounterLabel.verticalAlignmentMode = .bottom
-        killCounterLabel.position = CGPoint(x: -playableRect.size.width/2 + CGFloat(20),
+        killCounterLabel.position = CGPoint(x: playableRect.size.width/2 + CGFloat(-20),
                                       y: -playableRect.size.height/2 + CGFloat(20))
         cameraNode.addChild(killCounterLabel)
     }
