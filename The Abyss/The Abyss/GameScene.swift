@@ -40,6 +40,7 @@ class GameScene: SKScene {
         livesLabel.text = "Lives: \(lives)"
 
         displayGameOverScene()
+        displayWinGameScene()
 
     }
 
@@ -56,11 +57,13 @@ class GameScene: SKScene {
         setupPlayableRectangle(size)
         setupCamera()
         
-        setupLivesLabel()
+//        setupLivesLabel()
+        setupKillCounterLabel()
       }
 
     override func didEvaluateActions() {
-        checkCollisions()
+        checkSubmarineAndEnemyCollisions()
+        checkProjectileAndEnemyCollisions()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -81,6 +84,9 @@ class GameScene: SKScene {
     private var lives = 5
     private let livesLabel = SKLabelNode()
     private var submarineAnimation: SKAction?
+
+    private var killCounter = 0
+    private let killCounterLabel = SKLabelNode()
     private var gameOver = false
     
     private var lastUpdateTime: TimeInterval = 0
@@ -198,10 +204,21 @@ class GameScene: SKScene {
 
     private func displayGameOverScene() {
         if lives <= 0 {
-            gameOver = true
             print("You lose!")
             
-            let gameOverScene = GameOverScene(size: size)
+            let gameOverScene = GameOverScene(size: size, won: false)
+            gameOverScene.scaleMode = scaleMode
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            
+            view?.presentScene(gameOverScene, transition: reveal)
+        }
+    }
+
+    private func displayWinGameScene() {
+        if killCounter >= 10 {
+            print("You Win!")
+            
+            let gameOverScene = GameOverScene(size: size, won: true)
             gameOverScene.scaleMode = scaleMode
             let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
             
@@ -233,6 +250,45 @@ class GameScene: SKScene {
 
         run(spawnProjectilesActionForever)
     }
+
+    private func setupKillCounterLabel() {
+        guard let playableRect = playableRect else { return }
+        killCounterLabel.text = "Kill: \(killCounter)"
+        killCounterLabel.fontColor = SKColor.white
+        killCounterLabel.fontSize = 100
+        killCounterLabel.zPosition = 100
+        killCounterLabel.horizontalAlignmentMode = .left
+        killCounterLabel.verticalAlignmentMode = .bottom
+        killCounterLabel.position = CGPoint(x: -playableRect.size.width/2 + CGFloat(20),
+                                      y: -playableRect.size.height/2 + CGFloat(20))
+        cameraNode.addChild(killCounterLabel)
+    }
+
+    private func projectileHit(enemy: SKSpriteNode) {
+        killCounter += 1
+        killCounterLabel.text = "Kill: \(killCounter)"
+        enemy.removeFromParent()
+    }
+
+    private func checkProjectileAndEnemyCollisions() {
+        var hitProjectile: [SKSpriteNode] = []
+        enumerateChildNodes(withName: "projectile") { node, _ in
+            let projectile = node as! SKSpriteNode
+                hitProjectile.append(projectile)
+        }
+        var hitEnemies: [SKSpriteNode] = []
+        enumerateChildNodes(withName: "enemy") { node, _ in
+            let enemy = node as! SKSpriteNode
+            for projectile in hitProjectile {
+            if node.frame.insetBy(dx: 10, dy: 10).intersects(projectile.frame) {
+                hitEnemies.append(enemy)
+            }
+            }
+        }
+        for enemy in hitEnemies {
+            projectileHit(enemy: enemy)
+        }
+        }
 
 //    MARK: - Enemy
 
@@ -281,7 +337,7 @@ class GameScene: SKScene {
         livesLabel.text = "Lives: \(lives)"
       }
       
-    private func checkCollisions() {
+    private func checkSubmarineAndEnemyCollisions() {
         if invincible {
             return
         }
@@ -362,3 +418,5 @@ class GameScene: SKScene {
     }
       
 }
+
+
