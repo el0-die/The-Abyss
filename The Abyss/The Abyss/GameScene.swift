@@ -51,6 +51,7 @@ class GameScene: SKScene {
         
         setupSubmarine()
         setupSpawnEnemyAction(spawnTimeInSecond: 2.0)
+        setupSpawnProjectileAction(spawnTimeInSecond: 1.0)
         
         setupPlayableRectangle(size)
         setupCamera()
@@ -127,7 +128,6 @@ class GameScene: SKScene {
     }
 
     private func setupSubmarineAnimation() {
-        // Submarine Animation
         var submarineTextures: [SKTexture] = []
         let numberOfSubmarineTexture = 6
         for textureIndex in 1...numberOfSubmarineTexture {
@@ -192,9 +192,9 @@ class GameScene: SKScene {
         }
     }
 
-    private func stopSubmarineAnimation() {
-        submarine.removeAction(forKey: "animation")
-    }
+//    private func stopSubmarineAnimation() {
+//        submarine.removeAction(forKey: "animation")
+//    }
 
     private func displayGameOverScene() {
         if lives <= 0 {
@@ -207,6 +207,31 @@ class GameScene: SKScene {
             
             view?.presentScene(gameOverScene, transition: reveal)
         }
+    }
+
+    // Projectile
+
+    private func spawnProjectile() {
+        let projectile = SKSpriteNode(imageNamed: "projectile")
+        projectile.name = "projectile"
+        projectile.position = submarine.position
+        addChild(projectile)
+
+        let actionMove = SKAction.moveBy(x: size.width + projectile.size.width, y: 0, duration: 3.0)
+        let actionRemove = SKAction.removeFromParent()
+        projectile.run(SKAction.sequence([actionMove, actionRemove]))
+    }
+
+    private func setupSpawnProjectileAction(spawnTimeInSecond: TimeInterval) {
+        let singleSpawnProjectileAction = SKAction.run { [weak self] in
+            self?.spawnProjectile()
+        }
+
+        let waitBeforeAction = SKAction.wait(forDuration: spawnTimeInSecond)
+        let spawnProjectileActionSequence = SKAction.sequence([singleSpawnProjectileAction, waitBeforeAction])
+        let spawnProjectilesActionForever = SKAction.repeatForever(spawnProjectileActionSequence)
+
+        run(spawnProjectilesActionForever)
     }
 
 //    MARK: - Enemy
