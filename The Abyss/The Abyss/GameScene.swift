@@ -10,6 +10,7 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
+    let submarine = Submarine()
 
 //    MARK: - Override
     
@@ -23,14 +24,14 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         if lastUpdateTime > 0 {
-            dt = currentTime - lastUpdateTime
+            submarine.dt = currentTime - lastUpdateTime
         } else {
-            dt = 0
+            submarine.dt = 0
         }
         lastUpdateTime = currentTime
-        move(sprite: submarine, velocity: velocity)
+        submarine.move(sprite: submarine.submarine, velocity: submarine.velocity)
       
-        boundsCheckSubmarine()
+        submarine.boundsCheckSubmarine(bottomLeft: (x: cameraRect.minX, y: cameraRect.minY), topRight: (x: cameraRect.maxX, y: cameraRect.maxY))
 
         moveCamera()
         livesLabel.text = "Lives: \(lives)"
@@ -42,11 +43,11 @@ class GameScene: SKScene {
 
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-    
-        setupSubmarineAnimation()
+        addChild(submarine.submarine)
+        submarine.setupSubmarineAnimation()
         setupBackground()
         
-        setupSubmarine()
+        submarine.setupSubmarine()
         setupSpawnEnemyAction(spawnTimeInSecond: 2.0)
         setupSpawnProjectileAction(spawnTimeInSecond: 1.0)
         
@@ -76,15 +77,10 @@ class GameScene: SKScene {
     // MARK: Private - Properties
 
     private var lastUpdateTime: TimeInterval = 0
-    private var dt: TimeInterval = 0
+    
     private var playableRect: CGRect?
     private var lastTouchLocation: CGPoint?
-    private var velocity = CGPoint.zero
-
-    private let submarine = SKSpriteNode(imageNamed: "submarine1")
-    private var submarineAnimation: SKAction?
-    private let submarineMovePointsPerSec: CGFloat = 480.0
-    private var invincible = false
+    
 
     private var lives = 5
     private let livesLabel = SKLabelNode()
@@ -118,66 +114,12 @@ class GameScene: SKScene {
 
     private func sceneTouched(touchLocation:CGPoint) {
         lastTouchLocation = touchLocation
-        moveSubmarineToward(location: touchLocation)
+        submarine.moveSubmarineToward(location: touchLocation)
     }
     
     // MARK: Submarine
 
-    private func setupSubmarine() {
-        submarine.position = CGPoint(x: 400, y: 400)
-        submarine.zPosition = 100
-        addChild(submarine)
-    }
-
-    private func setupSubmarineAnimation() {
-        var submarineTextures: [SKTexture] = []
-        let numberOfSubmarineTexture = 6
-        for textureIndex in 1...numberOfSubmarineTexture {
-            submarineTextures.append(SKTexture(imageNamed: "submarine\(textureIndex)"))
-        }
-        submarineTextures.append(submarineTextures[2])
-        submarineTextures.append(submarineTextures[1])
-        submarineAnimation = SKAction.animate(with: submarineTextures, timePerFrame: 0.1)
-    }
-
-    private func startSubmarineAnimation() {
-        guard let submarineAnimation = submarineAnimation else { return }
-        submarine.run(SKAction.repeatForever(submarineAnimation))
-    }
-
-    private func moveSubmarineToward(location: CGPoint) {
-        startSubmarineAnimation()
-        let offset = location - submarine.position
-        let direction = offset.normalized()
-        velocity = direction * submarineMovePointsPerSec
-    }
-
-    private func move(sprite: SKSpriteNode, velocity: CGPoint) {
-        let amountToMove = velocity * CGFloat(dt)
-        sprite.position += amountToMove
-    }
-
-    private func boundsCheckSubmarine() {
-        let bottomLeft = CGPoint(x: cameraRect.minX, y: cameraRect.minY)
-        let topRight = CGPoint(x: cameraRect.maxX, y: cameraRect.maxY)
-      
-        if submarine.position.x <= bottomLeft.x {
-            submarine.position.x = bottomLeft.x
-            velocity.x = abs(velocity.x)
-        }
-        if submarine.position.x >= topRight.x {
-            submarine.position.x = topRight.x
-            velocity.x = -velocity.x
-        }
-        if submarine.position.y <= bottomLeft.y {
-            submarine.position.y = bottomLeft.y
-            velocity.y = -velocity.y
-        }
-        if submarine.position.y >= topRight.y {
-            submarine.position.y = topRight.y
-            velocity.y = -velocity.y
-        }
-    }
+    
 
     // Lives
     
@@ -209,7 +151,7 @@ class GameScene: SKScene {
     // Collision: Submarine & Enemy
     
     private func submarineHit(enemy: SKSpriteNode) {
-        invincible = true
+        submarine.invincible = true
         let blinkTimes = 10.0
         let duration = 3.0
         let blinkAction = SKAction.customAction(withDuration: duration) { node, elapsedTime in
@@ -218,23 +160,23 @@ class GameScene: SKScene {
             node.isHidden = remainder > slice / 2
         }
         let setHidden = SKAction.run() { [weak self] in
-            self?.submarine.isHidden = false
-            self?.invincible = false
+            self?.submarine.submarine.isHidden = false
+            self?.submarine.invincible = false
         }
-        submarine.run(SKAction.sequence([blinkAction, setHidden]))
+        submarine.submarine.run(SKAction.sequence([blinkAction, setHidden]))
         lives -= 1
         livesLabel.text = "Lives: \(lives)"
       }
       
     private func checkSubmarineAndEnemyCollisions() {
-        if invincible {
+        if submarine.invincible {
             return
         }
         
         var hitEnemies: [SKSpriteNode] = []
         enumerateChildNodes(withName: "enemy") { node, _ in
             let enemy = node as! SKSpriteNode
-            if node.frame.insetBy(dx: 10, dy: 10).intersects(self.submarine.frame) {
+            if node.frame.insetBy(dx: 10, dy: 10).intersects(self.submarine.submarine.frame) {
                 hitEnemies.append(enemy)
             }
         }
@@ -248,7 +190,7 @@ class GameScene: SKScene {
     private func spawnProjectile() {
         let projectile = SKSpriteNode(imageNamed: "projectile")
         projectile.name = "projectile"
-        projectile.position = submarine.position
+        projectile.position = submarine.submarine.position
         addChild(projectile)
 
         let actionMove = SKAction.moveBy(x: size.width + projectile.size.width, y: 0, duration: 3.0)
@@ -419,7 +361,7 @@ class GameScene: SKScene {
 
     private func moveCamera() {
         let backgroundVelocity = CGPoint(x: cameraMovePointsPerSec, y: 0)
-        let amountToMove = backgroundVelocity * CGFloat(dt)
+        let amountToMove = backgroundVelocity * CGFloat(submarine.dt)
         cameraNode.position += amountToMove
         
         enumerateChildNodes(withName: "background") { node, _ in
