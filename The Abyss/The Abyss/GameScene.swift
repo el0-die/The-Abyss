@@ -105,6 +105,7 @@ class GameScene: SKScene {
     }
 
     private func setupPlayableRectangle(_ size: CGSize) {
+        
         let maxAspectRatio: CGFloat = 16.0 / 9.0
         let playableHeight = size.width / maxAspectRatio
         let playableMargin = (size.height - playableHeight) / 2.0
@@ -139,11 +140,7 @@ class GameScene: SKScene {
 
     private func startSubmarineAnimation() {
         guard let submarineAnimation = submarineAnimation else { return }
-        
-        if submarine.action(forKey: "animation") == nil {
-            submarine.run(SKAction.repeatForever(submarineAnimation),
-                          withKey: "animation")
-        }
+        submarine.run(SKAction.repeatForever(submarineAnimation))
     }
 
     private func moveSubmarineToward(location: CGPoint) {
@@ -334,6 +331,8 @@ class GameScene: SKScene {
             min: cameraRect.minY + enemy.size.height/2, max: cameraRect.maxY - enemy.size.height/2))
         enemy.zPosition = 50
         addChild(enemy)
+
+        enemyAnimation(enemy: enemy)
       
         let actionMove = SKAction.moveBy(x: -(size.width + enemy.size.width), y: 0, duration: 6.0)
         let actionRemove = SKAction.removeFromParent()
@@ -350,6 +349,21 @@ class GameScene: SKScene {
         let spawnEnemiesActionForever = SKAction.repeatForever(spawnEnemyActionSequence)
 
         run(spawnEnemiesActionForever)
+    }
+
+    private func enemyAnimation(enemy: SKSpriteNode) {
+        var enemyAnimations: SKAction?
+        var enemyTextures: [SKTexture] = []
+        let numberOfEnemyTexture = 3
+        for textureIndex in 1...numberOfEnemyTexture {
+            enemyTextures.append(SKTexture(imageNamed: "pulp\(textureIndex)"))
+        }
+        enemyTextures.append(enemyTextures[2])
+        enemyTextures.append(enemyTextures[1])
+        enemyAnimations = SKAction.animate(with: enemyTextures, timePerFrame: 0.1)
+
+        guard let enemyAnimation = enemyAnimations else { return }
+        enemy.run(SKAction.repeatForever(enemyAnimation))
     }
 
     //MARK:  Background
