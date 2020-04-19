@@ -10,7 +10,6 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    let submarine = Submarine()
 
 //    MARK: - Override
     
@@ -24,14 +23,14 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         if lastUpdateTime > 0 {
-            submarine.dt = currentTime - lastUpdateTime
+            player.dt = currentTime - lastUpdateTime
         } else {
-            submarine.dt = 0
+            player.dt = 0
         }
         lastUpdateTime = currentTime
-        submarine.move(sprite: submarine.submarine, velocity: submarine.velocity)
+        player.move(sprite: player.submarine, velocity: player.velocity)
       
-        submarine.boundsCheckSubmarine(bottomLeft: (x: cameraRect.minX, y: cameraRect.minY), topRight: (x: cameraRect.maxX, y: cameraRect.maxY))
+        player.boundsCheckSubmarine(bottomLeft: (x: cameraRect.minX, y: cameraRect.minY), topRight: (x: cameraRect.maxX, y: cameraRect.maxY))
 
         moveCamera()
         livesLabel.text = "Lives: \(lives)"
@@ -43,19 +42,20 @@ class GameScene: SKScene {
 
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        addChild(submarine.submarine)
-        submarine.setupSubmarineAnimation()
-        setupBackground()
-        
-        submarine.setupSubmarine()
+
+        addChild(player.submarine)
+        player.setupSubmarine()
+        player.setupSubmarineAnimation()
+
         setupSpawnEnemyAction(spawnTimeInSecond: 2.0)
         setupSpawnProjectileAction(spawnTimeInSecond: 1.0)
-        
-        setupPlayableRectangle(size)
-        setupCamera()
-        
+
         setupLivesLabel()
         setupKillCounterLabel()
+
+        setupBackground()
+        setupPlayableRectangle(size)
+        setupCamera()
       }
 
     override func didEvaluateActions() {
@@ -72,57 +72,23 @@ class GameScene: SKScene {
     }
     
     // MARK: - Private
-    
-    
-    // MARK: Private - Properties
 
-    private var lastUpdateTime: TimeInterval = 0
-    
-    private var playableRect: CGRect?
-    private var lastTouchLocation: CGPoint?
-    
+    private let player = Player()
 
     private var lives = 5
     private let livesLabel = SKLabelNode()
-
     private var killCounter = 0
     private let killCounterLabel = SKLabelNode()
-    
+
     private let cameraNode = SKCameraNode()
     private let cameraMovePointsPerSec: CGFloat = 200.0
-    
-    
-    // MARK: Private - Methods
-    
-    private func handleTouchesEvent(touches: Set<UITouch>) {
-        guard let touch = touches.first else { return }
-        let touchLocation = touch.location(in: self)
-        sceneTouched(touchLocation: touchLocation)
-    }
+    private var lastUpdateTime: TimeInterval = 0
+    private var playableRect: CGRect?
+    private var lastTouchLocation: CGPoint?
 
-    private func setupPlayableRectangle(_ size: CGSize) {
-        let screenWidth  = UIScreen.main.fixedCoordinateSpace.bounds.width
-        let screenHeight = UIScreen.main.fixedCoordinateSpace.bounds.height
-        
-        let maxAspectRatio: CGFloat = screenHeight / screenWidth
-        let playableHeight = size.width / maxAspectRatio
-        let playableMargin = (size.height - playableHeight) / 2.0
-        playableRect = CGRect(x: 0, y: playableMargin,
-                              width: size.width,
-                              height: playableHeight)
-    }
-
-    private func sceneTouched(touchLocation:CGPoint) {
-        lastTouchLocation = touchLocation
-        submarine.moveSubmarineToward(location: touchLocation)
-    }
+    // MARK: Counter
     
-    // MARK: Submarine
-
-    
-
-    // Lives
-    
+    // Life
     private func setupLivesLabel() {
         guard let playableRect = playableRect else { return }
         livesLabel.text = "Lives: \(lives)"
@@ -136,61 +102,26 @@ class GameScene: SKScene {
         cameraNode.addChild(livesLabel)
     }
 
-    private func displayGameOverScene() {
-        if lives <= 0 {
-            print("You lose!")
-            
-            let gameOverScene = GameOverScene(size: size, won: false)
-            gameOverScene.scaleMode = scaleMode
-            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-            
-            view?.presentScene(gameOverScene, transition: reveal)
-        }
+    //Kill
+    private func setupKillCounterLabel() {
+        guard let playableRect = playableRect else { return }
+        killCounterLabel.text = "Kill: \(killCounter)"
+        killCounterLabel.fontColor = SKColor.white
+        killCounterLabel.fontSize = 100
+        killCounterLabel.zPosition = 100
+        killCounterLabel.horizontalAlignmentMode = .right
+        killCounterLabel.verticalAlignmentMode = .bottom
+        killCounterLabel.position = CGPoint(x: playableRect.size.width/2 + CGFloat(-20),
+                                      y: -playableRect.size.height/2 + CGFloat(20))
+        cameraNode.addChild(killCounterLabel)
     }
-
-    // Collision: Submarine & Enemy
-    
-    private func submarineHit(enemy: SKSpriteNode) {
-        submarine.invincible = true
-        let blinkTimes = 10.0
-        let duration = 3.0
-        let blinkAction = SKAction.customAction(withDuration: duration) { node, elapsedTime in
-            let slice = duration / blinkTimes
-            let remainder = Double(elapsedTime).truncatingRemainder(dividingBy: slice)
-            node.isHidden = remainder > slice / 2
-        }
-        let setHidden = SKAction.run() { [weak self] in
-            self?.submarine.submarine.isHidden = false
-            self?.submarine.invincible = false
-        }
-        submarine.submarine.run(SKAction.sequence([blinkAction, setHidden]))
-        lives -= 1
-        livesLabel.text = "Lives: \(lives)"
-      }
-      
-    private func checkSubmarineAndEnemyCollisions() {
-        if submarine.invincible {
-            return
-        }
-        
-        var hitEnemies: [SKSpriteNode] = []
-        enumerateChildNodes(withName: "enemy") { node, _ in
-            let enemy = node as! SKSpriteNode
-            if node.frame.insetBy(dx: 10, dy: 10).intersects(self.submarine.submarine.frame) {
-                hitEnemies.append(enemy)
-            }
-        }
-        for enemy in hitEnemies {
-            submarineHit(enemy: enemy)
-        }
-      }
 
     // MARK: Projectile
 
     private func spawnProjectile() {
         let projectile = SKSpriteNode(imageNamed: "projectile")
         projectile.name = "projectile"
-        projectile.position = submarine.submarine.position
+        projectile.position = player.submarine.position
         addChild(projectile)
 
         let actionMove = SKAction.moveBy(x: size.width + projectile.size.width, y: 0, duration: 3.0)
@@ -208,62 +139,6 @@ class GameScene: SKScene {
         let spawnProjectilesActionForever = SKAction.repeatForever(spawnProjectileActionSequence)
 
         run(spawnProjectilesActionForever)
-    }
-
-    // Kill Counter
-    
-    private func setupKillCounterLabel() {
-        guard let playableRect = playableRect else { return }
-        killCounterLabel.text = "Kill: \(killCounter)"
-        killCounterLabel.fontColor = SKColor.white
-        killCounterLabel.fontSize = 100
-        killCounterLabel.zPosition = 100
-        killCounterLabel.horizontalAlignmentMode = .right
-        killCounterLabel.verticalAlignmentMode = .bottom
-        killCounterLabel.position = CGPoint(x: playableRect.size.width/2 + CGFloat(-20),
-                                      y: -playableRect.size.height/2 + CGFloat(20))
-        cameraNode.addChild(killCounterLabel)
-    }
-
-    private func displayWinGameScene() {
-        if killCounter >= 10 {
-            print("You Win!")
-            
-            let gameOverScene = GameOverScene(size: size, won: true)
-            gameOverScene.scaleMode = scaleMode
-            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-            
-            view?.presentScene(gameOverScene, transition: reveal)
-        }
-    }
-
-    // Collision: Projectile & Enemy
-
-    private func projectileHit(enemy: SKSpriteNode) {
-        killCounter += 1
-        killCounterLabel.text = "Kill: \(killCounter)"
-        enemy.removeFromParent()
-    }
-
-    private func checkProjectileAndEnemyCollisions() {
-        var hitProjectile: [SKSpriteNode] = []
-        enumerateChildNodes(withName: "projectile") { node, _ in
-            let projectile = node as! SKSpriteNode
-                hitProjectile.append(projectile)
-        }
-        
-        var hitEnemies: [SKSpriteNode] = []
-        enumerateChildNodes(withName: "enemy") { node, _ in
-            let enemy = node as! SKSpriteNode
-            for projectile in hitProjectile {
-                if node.frame.insetBy(dx: 10, dy: 10).intersects(projectile.frame) {
-                    hitEnemies.append(enemy)
-                }
-            }
-        }
-        for enemy in hitEnemies {
-            projectileHit(enemy: enemy)
-        }
     }
 
     // MARK:  Enemy
@@ -310,8 +185,86 @@ class GameScene: SKScene {
         enemy.run(SKAction.repeatForever(enemyAnimation))
     }
 
-    //MARK:  Background
+    // MARK: Collisions
+    
+    // Submarine & Enemy
+    private func submarineHit(enemy: SKSpriteNode) {
+        player.manageInvincibility()
+        lives -= 1
+        livesLabel.text = "Lives: \(lives)"
+      }
+      
+    private func checkSubmarineAndEnemyCollisions() {
+        if player.invincible { return }
+        var hitEnemies: [SKSpriteNode] = []
+        enumerateChildNodes(withName: "enemy") { node, _ in
+            let enemy = node as! SKSpriteNode
+            if node.frame.insetBy(dx: 10, dy: 10).intersects(self.player.submarine.frame) {
+                hitEnemies.append(enemy)
+            }
+        }
+        for enemy in hitEnemies {
+            submarineHit(enemy: enemy)
+        }
+      }
 
+    // Projectile & Enemy
+    private func projectileHit(enemy: SKSpriteNode) {
+        killCounter += 1
+        killCounterLabel.text = "Kill: \(killCounter)"
+        enemy.removeFromParent()
+    }
+
+    private func checkProjectileAndEnemyCollisions() {
+        var hitProjectile: [SKSpriteNode] = []
+        enumerateChildNodes(withName: "projectile") { node, _ in
+            let projectile = node as! SKSpriteNode
+                hitProjectile.append(projectile)
+        }
+        
+        var hitEnemies: [SKSpriteNode] = []
+        enumerateChildNodes(withName: "enemy") { node, _ in
+            let enemy = node as! SKSpriteNode
+            for projectile in hitProjectile {
+                if node.frame.insetBy(dx: 10, dy: 10).intersects(projectile.frame) {
+                    hitEnemies.append(enemy)
+                }
+            }
+        }
+        for enemy in hitEnemies {
+            projectileHit(enemy: enemy)
+        }
+    }
+
+    // MARK: Display Game's End
+
+    private func displayWinGameScene() {
+        if killCounter >= 10 {
+            print("You Win!")
+            
+            let gameOverScene = GameOverScene(size: size, won: true)
+            gameOverScene.scaleMode = scaleMode
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            
+            view?.presentScene(gameOverScene, transition: reveal)
+        }
+    }
+
+    private func displayGameOverScene() {
+        if lives <= 0 {
+            print("You lose!")
+            
+            let gameOverScene = GameOverScene(size: size, won: false)
+            gameOverScene.scaleMode = scaleMode
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            
+            view?.presentScene(gameOverScene, transition: reveal)
+        }
+    }
+
+    //MARK:  Utilities
+
+    // Background
     private func setupBackground() {
         backgroundColor = SKColor.black
       
@@ -344,8 +297,7 @@ class GameScene: SKScene {
         return backgroundNode
     }
 
-    //MARK:  Camera
-
+    // Camera
     private var cameraRect : CGRect {
         guard let playableRect = playableRect else { return CGRect()}
         let x = cameraNode.position.x - size.width / 2 + (size.width - playableRect.width)/2
@@ -361,7 +313,7 @@ class GameScene: SKScene {
 
     private func moveCamera() {
         let backgroundVelocity = CGPoint(x: cameraMovePointsPerSec, y: 0)
-        let amountToMove = backgroundVelocity * CGFloat(submarine.dt)
+        let amountToMove = backgroundVelocity * CGFloat(player.dt)
         cameraNode.position += amountToMove
         
         enumerateChildNodes(withName: "background") { node, _ in
@@ -372,7 +324,28 @@ class GameScene: SKScene {
             }
         }
     }
-      
+
+    // Others
+    private func handleTouchesEvent(touches: Set<UITouch>) {
+        guard let touch = touches.first else { return }
+        let touchLocation = touch.location(in: self)
+        sceneTouched(touchLocation: touchLocation)
+    }
+
+    private func sceneTouched(touchLocation:CGPoint) {
+        lastTouchLocation = touchLocation
+        player.moveSubmarineToward(location: touchLocation)
+    }
+
+    private func setupPlayableRectangle(_ size: CGSize) {
+        let screenWidth  = UIScreen.main.fixedCoordinateSpace.bounds.width
+        let screenHeight = UIScreen.main.fixedCoordinateSpace.bounds.height
+        
+        let maxAspectRatio: CGFloat = screenHeight / screenWidth
+        let playableHeight = size.width / maxAspectRatio
+        let playableMargin = (size.height - playableHeight) / 2.0
+        playableRect = CGRect(x: 0, y: playableMargin,
+                              width: size.width,
+                              height: playableHeight)
+    }
 }
-
-
