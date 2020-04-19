@@ -105,8 +105,10 @@ class GameScene: SKScene {
     }
 
     private func setupPlayableRectangle(_ size: CGSize) {
+        let screenWidth  = UIScreen.main.fixedCoordinateSpace.bounds.width
+        let screenHeight = UIScreen.main.fixedCoordinateSpace.bounds.height
         
-        let maxAspectRatio: CGFloat = 16.0 / 9.0
+        let maxAspectRatio: CGFloat = screenHeight / screenWidth
         let playableHeight = size.width / maxAspectRatio
         let playableMargin = (size.height - playableHeight) / 2.0
         playableRect = CGRect(x: 0, y: playableMargin,
