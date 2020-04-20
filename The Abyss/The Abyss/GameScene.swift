@@ -50,12 +50,12 @@ class GameScene: SKScene {
         setupSpawnEnemyAction(spawnTimeInSecond: 2.0)
         setupSpawnProjectileAction(spawnTimeInSecond: 1.0)
 
-        setupLivesLabel()
-        setupKillCounterLabel()
-
         setupBackground()
         setupPlayableRectangle(size)
         setupCamera()
+
+        setupLivesLabel()
+        setupKillCounterLabel()
       }
 
     override func didEvaluateActions() {
@@ -73,6 +73,7 @@ class GameScene: SKScene {
     
     // MARK: - Private
 
+    // Properties
     private let player = Player()
 
     private var lives = 5
@@ -85,6 +86,30 @@ class GameScene: SKScene {
     private var lastUpdateTime: TimeInterval = 0
     private var playableRect: CGRect?
     private var lastTouchLocation: CGPoint?
+
+    // 
+    private func handleTouchesEvent(touches: Set<UITouch>) {
+        guard let touch = touches.first else { return }
+        let touchLocation = touch.location(in: self)
+        sceneTouched(touchLocation: touchLocation)
+    }
+
+    private func sceneTouched(touchLocation:CGPoint) {
+        lastTouchLocation = touchLocation
+        player.moveSubmarineToward(location: touchLocation)
+    }
+
+    private func setupPlayableRectangle(_ size: CGSize) {
+        let screenWidth  = UIScreen.main.fixedCoordinateSpace.bounds.width
+        let screenHeight = UIScreen.main.fixedCoordinateSpace.bounds.height
+        
+        let maxAspectRatio: CGFloat = screenHeight / screenWidth
+        let playableHeight = size.width / maxAspectRatio
+        let playableMargin = (size.height - playableHeight) / 2.0
+        playableRect = CGRect(x: 0, y: playableMargin,
+                              width: size.width,
+                              height: playableHeight)
+    }
 
     // MARK: Counter
     
@@ -326,26 +351,5 @@ class GameScene: SKScene {
     }
 
     // Others
-    private func handleTouchesEvent(touches: Set<UITouch>) {
-        guard let touch = touches.first else { return }
-        let touchLocation = touch.location(in: self)
-        sceneTouched(touchLocation: touchLocation)
-    }
-
-    private func sceneTouched(touchLocation:CGPoint) {
-        lastTouchLocation = touchLocation
-        player.moveSubmarineToward(location: touchLocation)
-    }
-
-    private func setupPlayableRectangle(_ size: CGSize) {
-        let screenWidth  = UIScreen.main.fixedCoordinateSpace.bounds.width
-        let screenHeight = UIScreen.main.fixedCoordinateSpace.bounds.height
-        
-        let maxAspectRatio: CGFloat = screenHeight / screenWidth
-        let playableHeight = size.width / maxAspectRatio
-        let playableMargin = (size.height - playableHeight) / 2.0
-        playableRect = CGRect(x: 0, y: playableMargin,
-                              width: size.width,
-                              height: playableHeight)
-    }
+    
 }

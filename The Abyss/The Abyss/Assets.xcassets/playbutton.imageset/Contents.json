@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "launchscreen.png",
+      "filename" : "playbutton.png",
       "idiom" : "universal",
       "scale" : "1x"
     },

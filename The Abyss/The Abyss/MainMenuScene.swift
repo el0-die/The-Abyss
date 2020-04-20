@@ -10,16 +10,21 @@ import Foundation
 import SpriteKit
 
 class MainMenuScene: SKScene {
+    
+    let background = SKSpriteNode(imageNamed: "background1")
+    let playButton = SKSpriteNode(imageNamed: "playbutton")
+    
     override func didMove(to view: SKView) {
-        let background = SKSpriteNode(imageNamed: "launchscreen")
         background.position = CGPoint(x: size.width/2, y: size.height/2)
+        playButton.position = CGPoint(x: size.width/2, y: size.height/2)
         addChild(background)
+        addChild(playButton)
     }
   
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         presentGameScene()
     }
+    
     
     
     private func presentGameScene() {
