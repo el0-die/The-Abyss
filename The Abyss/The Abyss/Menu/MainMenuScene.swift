@@ -13,7 +13,6 @@ class MainMenuScene: SKScene {
     let easyBtn = SKSpriteNode(imageNamed: "buttoneasy")
     let mediumBtn = SKSpriteNode(imageNamed: "buttonmedium")
     let hardBtn = SKSpriteNode(imageNamed: "buttonhard")
-
    
     override func didMove(to view: SKView) {
         let centerPoint = CGPoint(x: size.width/2, y: size.height/2)
@@ -23,24 +22,21 @@ class MainMenuScene: SKScene {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-            guard let touch = touches.first else {
-                return
-            }
-                 
-            let touchLocation = touch.location(in: self)
-            let touchedNode = self.atPoint(touchLocation)
-                 
-            if(touchedNode.name == "easyBtn"){
-                presentGameScene()
-            }
-            if(touchedNode.name == "mediumBtn"){
-                presentGameScene()
-            }
-            if(touchedNode.name == "hardBtn"){
-                presentGameScene()
-            }
+        guard let touch = touches.first else {
+            return
         }
+        let touchLocation = touch.location(in: self)
+        let touchedNode = self.atPoint(touchLocation)
+        if(touchedNode.name == "easyBtn"){
+            presentGameScene(DifficultyLevel(difficulty: .easy))
+        }
+        if(touchedNode.name == "mediumBtn"){
+            presentGameScene(DifficultyLevel(difficulty: .medium))
+        }
+        if(touchedNode.name == "hardBtn"){
+            presentGameScene(DifficultyLevel(difficulty: .hard))
+        }
+    }
 
     private func setupGameLabel() {
         let gameLabel = SKSpriteNode(imageNamed: "gametitle")
@@ -72,8 +68,8 @@ class MainMenuScene: SKScene {
         hardBtn.zPosition = 1
     }
 
-    private func presentGameScene() {
-        let gameScene = GameScene(size: size)
+    private func presentGameScene(_ difficultyLvl: DifficultyLevel) {
+        let gameScene = GameScene(size: size, difficultyLvl: difficultyLvl )
         gameScene.scaleMode = scaleMode
         gameScene.view?.showsPhysics = true
         let reveal = SKTransition.doorway(withDuration: 1.5)

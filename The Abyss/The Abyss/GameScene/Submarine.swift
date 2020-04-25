@@ -10,7 +10,6 @@ import Foundation
 import SpriteKit
 
 class Submarine {
-
     let spriteNode = SKSpriteNode(imageNamed: "submarine1")
     var velocity = CGPoint.zero
     var dt: TimeInterval = 0

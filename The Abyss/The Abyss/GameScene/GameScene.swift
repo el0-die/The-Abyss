@@ -12,14 +12,21 @@ import GameplayKit
 class GameScene: SKScene {
 
 //    MARK: - Override
+//    override init(size: CGSize) {
+//        super.init(size: size)
+//    }
     
-    override init(size: CGSize) {
+    let difficultyLvl: DifficultyLevel
+    init(size: CGSize, difficultyLvl: DifficultyLevel) {
+        self.difficultyLvl = difficultyLvl
         super.init(size: size)
     }
       
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+   
     
     override func update(_ currentTime: TimeInterval) {
         if lastUpdateTime > 0 {
@@ -33,7 +40,7 @@ class GameScene: SKScene {
         submarine.boundsCheck(bottomLeft: (x: cameraRect.minX, y: cameraRect.minY), topRight: (x: cameraRect.maxX, y: cameraRect.maxY))
 
         moveCamera()
-        livesLabel.text = "Lives: \(lives)"
+        livesLabel.text = "Lives: \(difficultyLvl.numberOfLives)"
 
         displayGameOverScene()
         displayWinGameScene()
@@ -76,8 +83,6 @@ class GameScene: SKScene {
 
     // Properties
     private let submarine = Submarine()
-
-    private var lives = 5
     private let livesLabel = SKLabelNode()
     private var killCounter = 0
     private let killCounterLabel = SKLabelNode()
@@ -129,7 +134,7 @@ class GameScene: SKScene {
     // Life
     private func setupLivesLabel() {
         guard let playableRect = playableRect else { return }
-        livesLabel.text = "Lives: \(lives)"
+        livesLabel.text = "Lives: \(difficultyLvl.numberOfLives)"
         livesLabel.fontColor = SKColor.white
         livesLabel.fontSize = 100
         livesLabel.zPosition = 100
@@ -201,7 +206,7 @@ class GameScene: SKScene {
             self?.spawnEnemy()
         }
 
-        let waitBeforeAction = SKAction.wait(forDuration: spawnTimeInSecond)
+        let waitBeforeAction = SKAction.wait(forDuration: difficultyLvl.spawnTimeInSec)
         let spawnEnemyActionSequence = SKAction.sequence([singleSpawnEnemyAction, waitBeforeAction])
         let spawnEnemiesActionForever = SKAction.repeatForever(spawnEnemyActionSequence)
 
@@ -228,8 +233,8 @@ class GameScene: SKScene {
     // Submarine & Enemy
     private func submarineHit(enemy: SKSpriteNode) {
         submarine.manageInvincibility()
-        lives -= 1
-        livesLabel.text = "Lives: \(lives)"
+        difficultyLvl.numberOfLives -= 1
+        livesLabel.text = "Lives: \(difficultyLvl.numberOfLives)"
       }
       
     private func checkSubmarineAndEnemyCollisions() {
@@ -277,7 +282,7 @@ class GameScene: SKScene {
     // MARK: Display Game's End
 
     private func displayWinGameScene() {
-        if killCounter >= 10 {
+        if killCounter >= difficultyLvl.numberOfKillToWin {
             print("You Win!")
             
             let gameOverScene = GameOverScene(size: size, won: true)
@@ -289,7 +294,7 @@ class GameScene: SKScene {
     }
 
     private func displayGameOverScene() {
-        if lives <= 0 {
+        if difficultyLvl.numberOfLives <= 0 {
             print("You lose!")
             
             let gameOverScene = GameOverScene(size: size, won: false)

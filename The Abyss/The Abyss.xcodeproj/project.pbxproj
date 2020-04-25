@@ -16,6 +16,7 @@
 		5D806D2F244456E100B71347 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D2D244456E100B71347 /* Main.storyboard */; };
 		5D806D31244456E400B71347 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D30244456E400B71347 /* Assets.xcassets */; };
 		5D806D34244456E400B71347 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D32244456E400B71347 /* LaunchScreen.storyboard */; };
+		5DBED7FB24546E2400AA0EC4 /* DifficultyLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBED7FA24546E2400AA0EC4 /* DifficultyLevel.swift */; };
 		5DC9421724445A980085CF68 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC9421624445A980085CF68 /* MainMenuScene.swift */; };
 		5DC9421B2444613D0085CF68 /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC9421A2444613D0085CF68 /* MyUtils.swift */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 		5D806D30244456E400B71347 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D806D33244456E400B71347 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D806D35244456E400B71347 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5DBED7FA24546E2400AA0EC4 /* DifficultyLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyLevel.swift; sourceTree = "<group>"; };
 		5DC9421624445A980085CF68 /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		5DC9421A2444613D0085CF68 /* MyUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +119,7 @@
 		5DBED7F0245426E800AA0EC4 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				5DBED7FA24546E2400AA0EC4 /* DifficultyLevel.swift */,
 				5DC9421624445A980085CF68 /* MainMenuScene.swift */,
 			);
 			path = Menu;
@@ -205,6 +208,7 @@
 				5D806D2A244456E100B71347 /* GameScene.swift in Sources */,
 				5D233523244C573300F967FC /* Submarine.swift in Sources */,
 				5DC9421B2444613D0085CF68 /* MyUtils.swift in Sources */,
+				5DBED7FB24546E2400AA0EC4 /* DifficultyLevel.swift in Sources */,
 				5D806D2C244456E100B71347 /* GameViewController.swift in Sources */,
 				5DC9421724445A980085CF68 /* MainMenuScene.swift in Sources */,
 				5D2335212449E4A700F967FC /* GameOverScene.swift in Sources */,
