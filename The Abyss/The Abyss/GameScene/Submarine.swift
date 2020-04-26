@@ -72,7 +72,7 @@ class Submarine {
             let remainder = Double(elapsedTime).truncatingRemainder(dividingBy: slice)
             node.isHidden = remainder > slice / 2
         }
-        let setHidden = SKAction.run() { [weak self] in
+        let setHidden = SKAction.run { [weak self] in
             self?.spriteNode.isHidden = false
             self?.invincible = false
         }

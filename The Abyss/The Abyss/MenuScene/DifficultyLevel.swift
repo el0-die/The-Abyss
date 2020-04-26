@@ -17,7 +17,7 @@ class DifficultyLevel {
     var spawnTimeInSec: TimeInterval
     var numberOfKillToWin: Int
     var numberOfLives: Int
-    
+
     init(difficulty: Difficulty) {
         self.difficulty = difficulty
         switch self.difficulty {
@@ -35,6 +35,5 @@ class DifficultyLevel {
             numberOfLives = 3
         }
     }
-    
-    
+
 }

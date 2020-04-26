@@ -17,6 +17,8 @@
 		5D806D31244456E400B71347 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D30244456E400B71347 /* Assets.xcassets */; };
 		5D806D34244456E400B71347 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D32244456E400B71347 /* LaunchScreen.storyboard */; };
 		5DBED7FB24546E2400AA0EC4 /* DifficultyLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBED7FA24546E2400AA0EC4 /* DifficultyLevel.swift */; };
+		5DBED8052455C2EA00AA0EC4 /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBED8042455C2EA00AA0EC4 /* Counter.swift */; };
+		5DBED80B2455D6FC00AA0EC4 /* Larceny.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5DBED80A2455D6FB00AA0EC4 /* Larceny.ttf */; };
 		5DC9421724445A980085CF68 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC9421624445A980085CF68 /* MainMenuScene.swift */; };
 		5DC9421B2444613D0085CF68 /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC9421A2444613D0085CF68 /* MyUtils.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +36,8 @@
 		5D806D33244456E400B71347 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D806D35244456E400B71347 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5DBED7FA24546E2400AA0EC4 /* DifficultyLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyLevel.swift; sourceTree = "<group>"; };
+		5DBED8042455C2EA00AA0EC4 /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
+		5DBED80A2455D6FB00AA0EC4 /* Larceny.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Larceny.ttf; sourceTree = "<group>"; };
 		5DC9421624445A980085CF68 /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		5DC9421A2444613D0085CF68 /* MyUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,7 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				5DBED7EE2454266600AA0EC4 /* Utils */,
-				5DBED7F0245426E800AA0EC4 /* Menu */,
+				5DBED7F0245426E800AA0EC4 /* MenuScene */,
 				5DBED7EF245426CF00AA0EC4 /* GameScene */,
 				5DBED7F12454272900AA0EC4 /* EndGame */,
 				5DBED7ED2454264700AA0EC4 /* Controller */,
@@ -84,6 +88,7 @@
 				5D806D23244456E100B71347 /* AppDelegate.swift */,
 				5D806D2D244456E100B71347 /* Main.storyboard */,
 				5D806D30244456E400B71347 /* Assets.xcassets */,
+				5DBED80A2455D6FB00AA0EC4 /* Larceny.ttf */,
 				5D806D35244456E400B71347 /* Info.plist */,
 				5D806D32244456E400B71347 /* LaunchScreen.storyboard */,
 			);
@@ -111,18 +116,19 @@
 			isa = PBXGroup;
 			children = (
 				5D233522244C573300F967FC /* Submarine.swift */,
+				5DBED8042455C2EA00AA0EC4 /* Counter.swift */,
 				5D806D29244456E100B71347 /* GameScene.swift */,
 			);
 			path = GameScene;
 			sourceTree = "<group>";
 		};
-		5DBED7F0245426E800AA0EC4 /* Menu */ = {
+		5DBED7F0245426E800AA0EC4 /* MenuScene */ = {
 			isa = PBXGroup;
 			children = (
 				5DBED7FA24546E2400AA0EC4 /* DifficultyLevel.swift */,
 				5DC9421624445A980085CF68 /* MainMenuScene.swift */,
 			);
-			path = Menu;
+			path = MenuScene;
 			sourceTree = "<group>";
 		};
 		5DBED7F12454272900AA0EC4 /* EndGame */ = {
@@ -143,6 +149,7 @@
 				5D806D1C244456E100B71347 /* Sources */,
 				5D806D1D244456E100B71347 /* Frameworks */,
 				5D806D1E244456E100B71347 /* Resources */,
+				5DBED7FC2455952200AA0EC4 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -192,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D806D2F244456E100B71347 /* Main.storyboard in Resources */,
+				5DBED80B2455D6FC00AA0EC4 /* Larceny.ttf in Resources */,
 				5D7E7C63244F46B800224A2F /* Bubbles.sks in Resources */,
 				5D806D31244456E400B71347 /* Assets.xcassets in Resources */,
 				5D806D34244456E400B71347 /* LaunchScreen.storyboard in Resources */,
@@ -199,6 +207,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5DBED7FC2455952200AA0EC4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5D806D1C244456E100B71347 /* Sources */ = {
@@ -210,6 +239,7 @@
 				5DC9421B2444613D0085CF68 /* MyUtils.swift in Sources */,
 				5DBED7FB24546E2400AA0EC4 /* DifficultyLevel.swift in Sources */,
 				5D806D2C244456E100B71347 /* GameViewController.swift in Sources */,
+				5DBED8052455C2EA00AA0EC4 /* Counter.swift in Sources */,
 				5DC9421724445A980085CF68 /* MainMenuScene.swift in Sources */,
 				5D2335212449E4A700F967FC /* GameOverScene.swift in Sources */,
 				5D806D24244456E100B71347 /* AppDelegate.swift in Sources */,
