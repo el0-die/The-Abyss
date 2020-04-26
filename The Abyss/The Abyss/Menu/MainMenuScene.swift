@@ -40,7 +40,7 @@ class MainMenuScene: SKScene {
 
     private func setupGameLabel() {
         let gameLabel = SKSpriteNode(imageNamed: "gametitle")
-        gameLabel.position = CGPoint(x: size.width/2, y: size.height / 1.3)
+        gameLabel.position = CGPoint(x: size.width / 3.3, y: size.height / 2)
         gameLabel.zPosition = 1
         addChild(gameLabel)
     }
@@ -54,17 +54,17 @@ class MainMenuScene: SKScene {
     private func setupButtons(){
         easyBtn.name = "easyBtn"
         addChild(easyBtn)
-        easyBtn.position = CGPoint(x: size.width/2, y: size.height/1.8)
+        easyBtn.position = CGPoint(x: size.width / 1.3, y: size.height / 1.5)
         easyBtn.zPosition = 1
              
         mediumBtn.name = "mediumBtn"
         addChild(mediumBtn)
-        mediumBtn.position = CGPoint(x: size.width/2, y: size.height/2.48)
+        mediumBtn.position = CGPoint(x: size.width / 1.3, y: size.height/2)
         mediumBtn.zPosition = 1
              
         hardBtn.name = "hardBtn"
         addChild(hardBtn)
-        hardBtn.position = CGPoint(x: size.width/2, y: size.height/4)
+        hardBtn.position = CGPoint(x: size.width / 1.3, y: size.height / 3)
         hardBtn.zPosition = 1
     }
 

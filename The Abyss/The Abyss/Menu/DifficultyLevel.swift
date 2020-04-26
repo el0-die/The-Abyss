@@ -27,11 +27,11 @@ class DifficultyLevel {
             numberOfLives = 5
         case .medium:
             spawnTimeInSec = 1.5
-            numberOfKillToWin = 10
+            numberOfKillToWin = 15
             numberOfLives = 4
         case .hard:
             spawnTimeInSec = 1
-            numberOfKillToWin = 10
+            numberOfKillToWin = 20
             numberOfLives = 3
         }
     }

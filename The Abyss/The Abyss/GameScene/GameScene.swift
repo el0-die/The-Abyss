@@ -12,9 +12,6 @@ import GameplayKit
 class GameScene: SKScene {
 
 //    MARK: - Override
-//    override init(size: CGSize) {
-//        super.init(size: size)
-//    }
     
     let difficultyLvl: DifficultyLevel
     init(size: CGSize, difficultyLvl: DifficultyLevel) {
@@ -25,8 +22,6 @@ class GameScene: SKScene {
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-   
     
     override func update(_ currentTime: TimeInterval) {
         if lastUpdateTime > 0 {
@@ -271,6 +266,7 @@ class GameScene: SKScene {
             for projectile in hitProjectile {
                 if node.frame.insetBy(dx: 10, dy: 10).intersects(projectile.frame) {
                     hitEnemies.append(enemy)
+                    projectile.removeFromParent()
                 }
             }
         }
