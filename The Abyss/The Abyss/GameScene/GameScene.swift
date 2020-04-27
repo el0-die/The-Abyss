@@ -60,6 +60,7 @@ class GameScene: SKScene {
 
         counter.setupLivesLabel(playableRect, difficultyLvl)
         counter.setupKillLabel(playableRect)
+        playBackgroundMusic(filename: "gameMusic.wav")
       }
 
     override func didEvaluateActions() {
@@ -86,6 +87,10 @@ class GameScene: SKScene {
     private var lastUpdateTime: TimeInterval = 0
     private var playableRect: CGRect?
     private var lastTouchLocation: CGPoint?
+    private let enemyCollisionSound: SKAction = SKAction.playSoundFileNamed(
+    "pop.wav", waitForCompletion: false)
+    private let projectileCollisionSound: SKAction = SKAction.playSoundFileNamed(
+    "pulpdeath.wav", waitForCompletion: false)
 
     // Methods
     private func handleTouchesEvent(touches: Set<UITouch>) {
@@ -194,77 +199,71 @@ class GameScene: SKScene {
     // MARK: Collisions
     // Submarine & Enemy
     private func submarineHit(enemy: SKSpriteNode) {
-           submarine.manageInvincibility()
-           difficultyLvl.numberOfLives -= 1
-           counter.livesLabel.text = "Lives: \(difficultyLvl.numberOfLives)"
-         }
+        submarine.manageInvincibility()
+        difficultyLvl.numberOfLives -= 1
+        counter.livesLabel.text = "Lives: \(difficultyLvl.numberOfLives)"
+        run(enemyCollisionSound)
+    }
 
     private func checkSubmarineAndEnemyCollisions() {
-           if submarine.invincible { return }
-           var hitEnemies: [SKSpriteNode] = []
+        if submarine.invincible { return }
+        var hitEnemies: [SKSpriteNode] = []
         enumerateChildNodes(withName: "enemy") { node, _ in
-               let enemy = node as! SKSpriteNode
-               if node.frame.insetBy(dx: 10, dy: 10).intersects(self.submarine.spriteNode.frame) {
-                   hitEnemies.append(enemy)
-               }
-           }
-           for enemy in hitEnemies {
-            submarineHit(enemy: enemy)
-           }
-         }
+            let enemy = node as! SKSpriteNode
+            if node.frame.insetBy(dx: 10, dy: 10).intersects(self.submarine.spriteNode.frame) {
+                hitEnemies.append(enemy)
+            }
+        }
+        for enemy in hitEnemies {
+        submarineHit(enemy: enemy)
+        }
+    }
 
        // Projectile & Enemy
-       private func projectileHit(enemy: SKSpriteNode) {
-           counter.kill += 1
-           counter.killLabel.text = "Kill: \(counter.kill)"
-           enemy.removeFromParent()
+    private func projectileHit(enemy: SKSpriteNode) {
+        counter.kill += 1
+        counter.killLabel.text = "Kill: \(counter.kill)"
+        enemy.removeFromParent()
+        run(projectileCollisionSound)
        }
 
-       private func checkProjectileAndEnemyCollisions() {
-           var hitProjectile: [SKSpriteNode] = []
+    private func checkProjectileAndEnemyCollisions() {
+        var hitProjectile: [SKSpriteNode] = []
         enumerateChildNodes(withName: "projectile") { node, _ in
-               let projectile = node as! SKSpriteNode
-                   hitProjectile.append(projectile)
-           }
-
-           var hitEnemies: [SKSpriteNode] = []
+            let projectile = node as! SKSpriteNode
+            hitProjectile.append(projectile)
+        }
+        var hitEnemies: [SKSpriteNode] = []
         enumerateChildNodes(withName: "enemy") { node, _ in
-               let enemy = node as! SKSpriteNode
-               for projectile in hitProjectile {
-                   if node.frame.insetBy(dx: 10, dy: 10).intersects(projectile.frame) {
-                       hitEnemies.append(enemy)
-                       projectile.removeFromParent()
-                   }
-               }
-           }
-           for enemy in hitEnemies {
-               projectileHit(enemy: enemy)
-           }
-       }
+            let enemy = node as! SKSpriteNode
+            for projectile in hitProjectile {
+                if node.frame.insetBy(dx: 10, dy: 10).intersects(projectile.frame) {
+                    hitEnemies.append(enemy)
+                    projectile.removeFromParent()
+                }
+            }
+        }
+        for enemy in hitEnemies {
+            projectileHit(enemy: enemy)
+        }
+    }
    
-
     // MARK: Display Game's End
 
     private func displayWinGameScene() {
         if counter.kill >= difficultyLvl.numberOfKillToWin {
-            print("You Win!")
-
             let gameOverScene = GameOverScene(size: size, won: true)
             gameOverScene.scaleMode = scaleMode
             let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-
             view?.presentScene(gameOverScene, transition: reveal)
         }
     }
 
     private func displayGameOverScene() {
         if difficultyLvl.numberOfLives <= 0 {
-            print("You lose!")
-
             let gameOverScene = GameOverScene(size: size, won: false)
             gameOverScene.scaleMode = scaleMode
             let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-
             view?.presentScene(gameOverScene, transition: reveal)
         }
     }
@@ -273,8 +272,6 @@ class GameScene: SKScene {
 
     // Background
     private func setupBackground() {
-        backgroundColor = SKColor.black
-
         for i in 0...5 {
             let background = backgroundNode()
             background.anchorPoint = CGPoint.zero
