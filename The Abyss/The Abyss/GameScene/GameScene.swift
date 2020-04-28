@@ -82,6 +82,7 @@ class GameScene: SKScene {
     private let submarine = Submarine()
     private let counter = Counter()
 
+    private var totalNumberOfEnemySpawn = 0
     private let cameraNode = SKCameraNode()
     private let cameraMovePointsPerSec: CGFloat = 200.0
     private var lastUpdateTime: TimeInterval = 0
@@ -156,14 +157,8 @@ class GameScene: SKScene {
     // MARK: Enemy
 
     private func spawnEnemy() {
-        let enemy = SKSpriteNode(imageNamed: "pulp1")
-        enemy.name = "enemy"
-        enemy.position = CGPoint(x: cameraRect.maxX + enemy.size.width/2, y: CGFloat.random(
-            min: cameraRect.minY + enemy.size.height/2, max: cameraRect.maxY - enemy.size.height/2))
-        enemy.zPosition = 50
+        let enemy = Enemy(cameraRect:cameraRect)
         addChild(enemy)
-
-        enemyAnimation(enemy: enemy)
 
         let actionMove = SKAction.moveBy(x: -(size.width + enemy.size.width), y: 0, duration: 6.0)
         let actionRemove = SKAction.removeFromParent()
@@ -180,20 +175,6 @@ class GameScene: SKScene {
         let spawnEnemiesActionForever = SKAction.repeatForever(spawnEnemyActionSequence)
 
         run(spawnEnemiesActionForever)
-    }
-
-    private func enemyAnimation(enemy: SKSpriteNode) {
-        var enemyAnimations: SKAction?
-        var enemyTextures: [SKTexture] = []
-        let numberOfEnemyTexture = 2
-        for textureIndex in 1...numberOfEnemyTexture {
-            enemyTextures.append(SKTexture(imageNamed: "pulp\(textureIndex)"))
-        }
-        enemyTextures.append(enemyTextures[1])
-        enemyAnimations = SKAction.animate(with: enemyTextures, timePerFrame: 0.1)
-
-        guard let enemyAnimation = enemyAnimations else { return }
-        enemy.run(SKAction.repeatForever(enemyAnimation))
     }
 
     // MARK: Collisions

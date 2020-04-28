@@ -21,7 +21,9 @@
 		5DBED80B2455D6FC00AA0EC4 /* Larceny.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5DBED80A2455D6FB00AA0EC4 /* Larceny.ttf */; };
 		5DBED80F245745C800AA0EC4 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DBED80E245745C800AA0EC4 /* pop.wav */; };
 		5DBED81124574A9500AA0EC4 /* pulpdeath.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DBED81024574A9500AA0EC4 /* pulpdeath.wav */; };
-		5DBED8132457688600AA0EC4 /* gameMusic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DBED8122457688600AA0EC4 /* gameMusic.wav */; };
+		5DBED8132457688600AA0EC4 /* gameMusic2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DBED8122457688600AA0EC4 /* gameMusic2.wav */; };
+		5DBED8172458839100AA0EC4 /* gameMusic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DBED8162458839100AA0EC4 /* gameMusic.wav */; };
+		5DBED81924589A9100AA0EC4 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBED81824589A9100AA0EC4 /* Enemy.swift */; };
 		5DC9421724445A980085CF68 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC9421624445A980085CF68 /* MainMenuScene.swift */; };
 		5DC9421B2444613D0085CF68 /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC9421A2444613D0085CF68 /* MyUtils.swift */; };
 /* End PBXBuildFile section */
@@ -43,7 +45,9 @@
 		5DBED80A2455D6FB00AA0EC4 /* Larceny.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Larceny.ttf; sourceTree = "<group>"; };
 		5DBED80E245745C800AA0EC4 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
 		5DBED81024574A9500AA0EC4 /* pulpdeath.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pulpdeath.wav; sourceTree = "<group>"; };
-		5DBED8122457688600AA0EC4 /* gameMusic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameMusic.wav; sourceTree = "<group>"; };
+		5DBED8122457688600AA0EC4 /* gameMusic2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameMusic2.wav; sourceTree = "<group>"; };
+		5DBED8162458839100AA0EC4 /* gameMusic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameMusic.wav; sourceTree = "<group>"; };
+		5DBED81824589A9100AA0EC4 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		5DC9421624445A980085CF68 /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		5DC9421A2444613D0085CF68 /* MyUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,7 +98,8 @@
 				5D806D23244456E100B71347 /* AppDelegate.swift */,
 				5D806D2D244456E100B71347 /* Main.storyboard */,
 				5D806D30244456E400B71347 /* Assets.xcassets */,
-				5DBED8122457688600AA0EC4 /* gameMusic.wav */,
+				5DBED8122457688600AA0EC4 /* gameMusic2.wav */,
+				5DBED8162458839100AA0EC4 /* gameMusic.wav */,
 				5DBED80E245745C800AA0EC4 /* pop.wav */,
 				5DBED81024574A9500AA0EC4 /* pulpdeath.wav */,
 				5DBED80A2455D6FB00AA0EC4 /* Larceny.ttf */,
@@ -125,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				5D233522244C573300F967FC /* Submarine.swift */,
+				5DBED81824589A9100AA0EC4 /* Enemy.swift */,
 				5DBED8042455C2EA00AA0EC4 /* Counter.swift */,
 				5D806D29244456E100B71347 /* GameScene.swift */,
 			);
@@ -207,11 +213,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DBED8172458839100AA0EC4 /* gameMusic.wav in Resources */,
 				5DBED80F245745C800AA0EC4 /* pop.wav in Resources */,
 				5D806D2F244456E100B71347 /* Main.storyboard in Resources */,
 				5DBED80B2455D6FC00AA0EC4 /* Larceny.ttf in Resources */,
 				5D7E7C63244F46B800224A2F /* Bubbles.sks in Resources */,
-				5DBED8132457688600AA0EC4 /* gameMusic.wav in Resources */,
+				5DBED8132457688600AA0EC4 /* gameMusic2.wav in Resources */,
 				5D806D31244456E400B71347 /* Assets.xcassets in Resources */,
 				5D806D34244456E400B71347 /* LaunchScreen.storyboard in Resources */,
 				5DBED81124574A9500AA0EC4 /* pulpdeath.wav in Resources */,
@@ -252,6 +259,7 @@
 				5DBED7FB24546E2400AA0EC4 /* DifficultyLevel.swift in Sources */,
 				5D806D2C244456E100B71347 /* GameViewController.swift in Sources */,
 				5DBED8052455C2EA00AA0EC4 /* Counter.swift in Sources */,
+				5DBED81924589A9100AA0EC4 /* Enemy.swift in Sources */,
 				5DC9421724445A980085CF68 /* MainMenuScene.swift in Sources */,
 				5D2335212449E4A700F967FC /* GameOverScene.swift in Sources */,
 				5D806D24244456E100B71347 /* AppDelegate.swift in Sources */,
