@@ -132,21 +132,15 @@ class GameScene: SKScene {
     // MARK: Projectile
 
     private func spawnProjectile() {
-        let projectile = SKSpriteNode(imageNamed: "projectile")
-        projectile.name = "projectile"
+        let projectile = Projectile()
         projectile.position = submarine.spriteNode.position
         addChild(projectile)
-
-        let actionMove = SKAction.moveBy(x: size.width + projectile.size.width + 500, y: 0, duration: 3.0)
-        let actionRemove = SKAction.removeFromParent()
-        projectile.run(SKAction.sequence([actionMove, actionRemove]))
     }
 
     private func setupSpawnProjectileAction(spawnTimeInSecond: TimeInterval) {
         let singleSpawnProjectileAction = SKAction.run { [weak self] in
             self?.spawnProjectile()
         }
-
         let waitBeforeAction = SKAction.wait(forDuration: spawnTimeInSecond)
         let spawnProjectileActionSequence = SKAction.sequence([singleSpawnProjectileAction, waitBeforeAction])
         let spawnProjectilesActionForever = SKAction.repeatForever(spawnProjectileActionSequence)
@@ -159,17 +153,12 @@ class GameScene: SKScene {
     private func spawnEnemy() {
         let enemy = Enemy(cameraRect:cameraRect)
         addChild(enemy)
-
-        let actionMove = SKAction.moveBy(x: -(size.width + enemy.size.width), y: 0, duration: 6.0)
-        let actionRemove = SKAction.removeFromParent()
-        enemy.run(SKAction.sequence([actionMove, actionRemove]))
     }
 
     private func setupSpawnEnemyAction(spawnTimeInSecond: TimeInterval) {
         let singleSpawnEnemyAction = SKAction.run { [weak self] in
             self?.spawnEnemy()
         }
-
         let waitBeforeAction = SKAction.wait(forDuration: difficultyLvl.spawnTimeInSec)
         let spawnEnemyActionSequence = SKAction.sequence([singleSpawnEnemyAction, waitBeforeAction])
         let spawnEnemiesActionForever = SKAction.repeatForever(spawnEnemyActionSequence)
@@ -179,13 +168,6 @@ class GameScene: SKScene {
 
     // MARK: Collisions
     // Submarine & Enemy
-    private func submarineHit(enemy: SKSpriteNode) {
-        submarine.manageInvincibility()
-        difficultyLvl.numberOfLives -= 1
-        counter.livesLabel.text = "Lives: \(difficultyLvl.numberOfLives)"
-        run(enemyCollisionSound)
-    }
-
     private func checkSubmarineAndEnemyCollisions() {
         if submarine.invincible { return }
         var hitEnemies: [SKSpriteNode] = []
@@ -196,18 +178,11 @@ class GameScene: SKScene {
             }
         }
         for enemy in hitEnemies {
-        submarineHit(enemy: enemy)
+            submarine.hit(enemy: enemy, difficultyLvl: difficultyLvl)
+            run(enemyCollisionSound)
         }
     }
-
        // Projectile & Enemy
-    private func projectileHit(enemy: SKSpriteNode) {
-        counter.kill += 1
-        counter.killLabel.text = "Kill: \(counter.kill)"
-        enemy.removeFromParent()
-        run(projectileCollisionSound)
-       }
-
     private func checkProjectileAndEnemyCollisions() {
         var hitProjectile: [SKSpriteNode] = []
         enumerateChildNodes(withName: "projectile") { node, _ in
@@ -225,7 +200,9 @@ class GameScene: SKScene {
             }
         }
         for enemy in hitEnemies {
-            projectileHit(enemy: enemy)
+            let projectile = Projectile()
+            projectile.hit(enemy: enemy, counter: counter)
+            run(projectileCollisionSound)
         }
     }
    
@@ -237,6 +214,7 @@ class GameScene: SKScene {
             gameOverScene.scaleMode = scaleMode
             let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
             view?.presentScene(gameOverScene, transition: reveal)
+            playBackgroundMusic(filename: "gameMusic2.wav")
         }
     }
 
@@ -246,6 +224,7 @@ class GameScene: SKScene {
             gameOverScene.scaleMode = scaleMode
             let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
             view?.presentScene(gameOverScene, transition: reveal)
+            playBackgroundMusic(filename: "gameMusic2.wav")
         }
     }
 

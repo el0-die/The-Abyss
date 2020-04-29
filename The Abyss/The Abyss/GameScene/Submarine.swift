@@ -79,6 +79,13 @@ class Submarine {
         spriteNode.run(SKAction.sequence([blinkAction, setHidden]))
     }
 
+    func hit(enemy: SKSpriteNode, difficultyLvl: DifficultyLevel) {
+        let counter = Counter()
+        manageInvincibility()
+        difficultyLvl.numberOfLives -= 1
+        counter.livesLabel.text = "Lives: \(difficultyLvl.numberOfLives)"
+    }
+
     private var animation: SKAction?
     private let movePointsPerSec: CGFloat = 480.0
     private func startAnimation() {

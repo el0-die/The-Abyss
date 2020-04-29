@@ -57,10 +57,11 @@ class Enemy: SKSpriteNode {
         run(SKAction.repeatForever(enemyAnimation))
     }
     
-    private func startMoveAnimation() {
+    func startMoveAnimation() {
         let duration = 6.0
-        let actionMove = SKAction.moveBy(x: -size.width, y: 0, duration: duration)
+        let actionMove = SKAction.moveBy(x: -(size.width + 2000) , y: 0, duration: duration)
         let actionRemove = SKAction.removeFromParent()
         run(SKAction.sequence([actionMove, actionRemove]))
     }
+    
 }
