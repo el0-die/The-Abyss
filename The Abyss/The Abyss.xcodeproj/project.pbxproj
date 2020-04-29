@@ -7,27 +7,51 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D2335212449E4A700F967FC /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2335202449E4A700F967FC /* GameOverScene.swift */; };
+		5D233523244C573300F967FC /* Submarine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D233522244C573300F967FC /* Submarine.swift */; };
+		5D7E7C63244F46B800224A2F /* Bubbles.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5D7E7C62244F46B800224A2F /* Bubbles.sks */; };
 		5D806D24244456E100B71347 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D806D23244456E100B71347 /* AppDelegate.swift */; };
-		5D806D26244456E100B71347 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D25244456E100B71347 /* GameScene.sks */; };
-		5D806D28244456E100B71347 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D27244456E100B71347 /* Actions.sks */; };
 		5D806D2A244456E100B71347 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D806D29244456E100B71347 /* GameScene.swift */; };
 		5D806D2C244456E100B71347 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D806D2B244456E100B71347 /* GameViewController.swift */; };
 		5D806D2F244456E100B71347 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D2D244456E100B71347 /* Main.storyboard */; };
 		5D806D31244456E400B71347 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D30244456E400B71347 /* Assets.xcassets */; };
 		5D806D34244456E400B71347 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D32244456E400B71347 /* LaunchScreen.storyboard */; };
+		5DBED7FB24546E2400AA0EC4 /* DifficultyLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBED7FA24546E2400AA0EC4 /* DifficultyLevel.swift */; };
+		5DBED8052455C2EA00AA0EC4 /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBED8042455C2EA00AA0EC4 /* Counter.swift */; };
+		5DBED80B2455D6FC00AA0EC4 /* Larceny.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5DBED80A2455D6FB00AA0EC4 /* Larceny.ttf */; };
+		5DBED80F245745C800AA0EC4 /* pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DBED80E245745C800AA0EC4 /* pop.wav */; };
+		5DBED81124574A9500AA0EC4 /* pulpdeath.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DBED81024574A9500AA0EC4 /* pulpdeath.wav */; };
+		5DBED8132457688600AA0EC4 /* gameMusic2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DBED8122457688600AA0EC4 /* gameMusic2.wav */; };
+		5DBED8172458839100AA0EC4 /* gameMusic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5DBED8162458839100AA0EC4 /* gameMusic.wav */; };
+		5DBED81924589A9100AA0EC4 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBED81824589A9100AA0EC4 /* Enemy.swift */; };
+		5DBED81D2459650A00AA0EC4 /* Projectile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBED81C2459650A00AA0EC4 /* Projectile.swift */; };
+		5DC9421724445A980085CF68 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC9421624445A980085CF68 /* MainMenuScene.swift */; };
+		5DC9421B2444613D0085CF68 /* MyUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC9421A2444613D0085CF68 /* MyUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D2335202449E4A700F967FC /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		5D233522244C573300F967FC /* Submarine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Submarine.swift; sourceTree = "<group>"; };
+		5D7E7C62244F46B800224A2F /* Bubbles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bubbles.sks; sourceTree = "<group>"; };
 		5D806D20244456E100B71347 /* The Abyss.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Abyss.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D806D23244456E100B71347 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5D806D25244456E100B71347 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		5D806D27244456E100B71347 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		5D806D29244456E100B71347 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		5D806D2B244456E100B71347 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		5D806D2E244456E100B71347 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5D806D30244456E400B71347 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D806D33244456E400B71347 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D806D35244456E400B71347 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5DBED7FA24546E2400AA0EC4 /* DifficultyLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyLevel.swift; sourceTree = "<group>"; };
+		5DBED8042455C2EA00AA0EC4 /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
+		5DBED80A2455D6FB00AA0EC4 /* Larceny.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Larceny.ttf; sourceTree = "<group>"; };
+		5DBED80E245745C800AA0EC4 /* pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pop.wav; sourceTree = "<group>"; };
+		5DBED81024574A9500AA0EC4 /* pulpdeath.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pulpdeath.wav; sourceTree = "<group>"; };
+		5DBED8122457688600AA0EC4 /* gameMusic2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameMusic2.wav; sourceTree = "<group>"; };
+		5DBED8162458839100AA0EC4 /* gameMusic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = gameMusic.wav; sourceTree = "<group>"; };
+		5DBED81824589A9100AA0EC4 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
+		5DBED81C2459650A00AA0EC4 /* Projectile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Projectile.swift; sourceTree = "<group>"; };
+		5DC9421624445A980085CF68 /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
+		5DC9421A2444613D0085CF68 /* MyUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,17 +84,77 @@
 		5D806D22244456E100B71347 /* The Abyss */ = {
 			isa = PBXGroup;
 			children = (
-				5D806D23244456E100B71347 /* AppDelegate.swift */,
-				5D806D25244456E100B71347 /* GameScene.sks */,
-				5D806D27244456E100B71347 /* Actions.sks */,
-				5D806D29244456E100B71347 /* GameScene.swift */,
-				5D806D2B244456E100B71347 /* GameViewController.swift */,
-				5D806D2D244456E100B71347 /* Main.storyboard */,
-				5D806D30244456E400B71347 /* Assets.xcassets */,
-				5D806D32244456E400B71347 /* LaunchScreen.storyboard */,
-				5D806D35244456E400B71347 /* Info.plist */,
+				5DBED7EE2454266600AA0EC4 /* Utils */,
+				5DBED7F0245426E800AA0EC4 /* MenuScene */,
+				5DBED7EF245426CF00AA0EC4 /* GameScene */,
+				5DBED7F12454272900AA0EC4 /* EndGame */,
+				5DBED7ED2454264700AA0EC4 /* Controller */,
+				5DBED7EC245425E300AA0EC4 /* Resources */,
 			);
 			path = "The Abyss";
+			sourceTree = "<group>";
+		};
+		5DBED7EC245425E300AA0EC4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5D806D23244456E100B71347 /* AppDelegate.swift */,
+				5D806D2D244456E100B71347 /* Main.storyboard */,
+				5D806D30244456E400B71347 /* Assets.xcassets */,
+				5DBED8122457688600AA0EC4 /* gameMusic2.wav */,
+				5DBED8162458839100AA0EC4 /* gameMusic.wav */,
+				5DBED80E245745C800AA0EC4 /* pop.wav */,
+				5DBED81024574A9500AA0EC4 /* pulpdeath.wav */,
+				5DBED80A2455D6FB00AA0EC4 /* Larceny.ttf */,
+				5D806D35244456E400B71347 /* Info.plist */,
+				5D806D32244456E400B71347 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		5DBED7ED2454264700AA0EC4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5D806D2B244456E100B71347 /* GameViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		5DBED7EE2454266600AA0EC4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				5D7E7C62244F46B800224A2F /* Bubbles.sks */,
+				5DC9421A2444613D0085CF68 /* MyUtils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		5DBED7EF245426CF00AA0EC4 /* GameScene */ = {
+			isa = PBXGroup;
+			children = (
+				5D233522244C573300F967FC /* Submarine.swift */,
+				5DBED81C2459650A00AA0EC4 /* Projectile.swift */,
+				5DBED81824589A9100AA0EC4 /* Enemy.swift */,
+				5DBED8042455C2EA00AA0EC4 /* Counter.swift */,
+				5D806D29244456E100B71347 /* GameScene.swift */,
+			);
+			path = GameScene;
+			sourceTree = "<group>";
+		};
+		5DBED7F0245426E800AA0EC4 /* MenuScene */ = {
+			isa = PBXGroup;
+			children = (
+				5DBED7FA24546E2400AA0EC4 /* DifficultyLevel.swift */,
+				5DC9421624445A980085CF68 /* MainMenuScene.swift */,
+			);
+			path = MenuScene;
+			sourceTree = "<group>";
+		};
+		5DBED7F12454272900AA0EC4 /* EndGame */ = {
+			isa = PBXGroup;
+			children = (
+				5D2335202449E4A700F967FC /* GameOverScene.swift */,
+			);
+			path = EndGame;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +167,7 @@
 				5D806D1C244456E100B71347 /* Sources */,
 				5D806D1D244456E100B71347 /* Frameworks */,
 				5D806D1E244456E100B71347 /* Resources */,
+				5DBED7FC2455952200AA0EC4 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -131,15 +216,40 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DBED8172458839100AA0EC4 /* gameMusic.wav in Resources */,
+				5DBED80F245745C800AA0EC4 /* pop.wav in Resources */,
 				5D806D2F244456E100B71347 /* Main.storyboard in Resources */,
-				5D806D26244456E100B71347 /* GameScene.sks in Resources */,
+				5DBED80B2455D6FC00AA0EC4 /* Larceny.ttf in Resources */,
+				5D7E7C63244F46B800224A2F /* Bubbles.sks in Resources */,
+				5DBED8132457688600AA0EC4 /* gameMusic2.wav in Resources */,
 				5D806D31244456E400B71347 /* Assets.xcassets in Resources */,
 				5D806D34244456E400B71347 /* LaunchScreen.storyboard in Resources */,
-				5D806D28244456E100B71347 /* Actions.sks in Resources */,
+				5DBED81124574A9500AA0EC4 /* pulpdeath.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5DBED7FC2455952200AA0EC4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "
+";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5D806D1C244456E100B71347 /* Sources */ = {
@@ -147,7 +257,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				5D806D2A244456E100B71347 /* GameScene.swift in Sources */,
+				5DBED81D2459650A00AA0EC4 /* Projectile.swift in Sources */,
+				5D233523244C573300F967FC /* Submarine.swift in Sources */,
+				5DC9421B2444613D0085CF68 /* MyUtils.swift in Sources */,
+				5DBED7FB24546E2400AA0EC4 /* DifficultyLevel.swift in Sources */,
 				5D806D2C244456E100B71347 /* GameViewController.swift in Sources */,
+				5DBED8052455C2EA00AA0EC4 /* Counter.swift in Sources */,
+				5DBED81924589A9100AA0EC4 /* Enemy.swift in Sources */,
+				5DC9421724445A980085CF68 /* MainMenuScene.swift in Sources */,
+				5D2335212449E4A700F967FC /* GameOverScene.swift in Sources */,
 				5D806D24244456E100B71347 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,6 +349,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				"Texture Atlas Maximum Size" = 2048x2048;
 			};
 			name = Debug;
 		};
@@ -284,6 +403,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				"Texture Atlas Maximum Size" = 2048x2048;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -293,7 +413,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "The Abyss/Info.plist";
+				DEVELOPMENT_TEAM = M75P84R2C5;
+				INFOPLIST_FILE = "The Abyss/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -302,6 +423,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				"Texture Atlas Maximum Size" = 2048x2048;
 			};
 			name = Debug;
 		};
@@ -310,7 +432,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "The Abyss/Info.plist";
+				DEVELOPMENT_TEAM = M75P84R2C5;
+				INFOPLIST_FILE = "The Abyss/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -319,6 +442,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				"Texture Atlas Maximum Size" = 2048x2048;
 			};
 			name = Release;
 		};
