@@ -19,6 +19,7 @@ class MainMenuScene: SKScene {
         setupEasyButton()
         setupMediumButton()
         setupHardButton()
+        playBackgroundMusic(filename: "gameMusic2.wav")
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
