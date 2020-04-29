@@ -33,7 +33,7 @@
 		5D2335202449E4A700F967FC /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		5D233522244C573300F967FC /* Submarine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Submarine.swift; sourceTree = "<group>"; };
 		5D7E7C62244F46B800224A2F /* Bubbles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bubbles.sks; sourceTree = "<group>"; };
-		5D806D20244456E100B71347 /* The Abyss.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "The Abyss.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5D806D20244456E100B71347 /* Abyss.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Abyss.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D806D23244456E100B71347 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5D806D29244456E100B71347 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		5D806D2B244456E100B71347 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -76,7 +76,7 @@
 		5D806D21244456E100B71347 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				5D806D20244456E100B71347 /* The Abyss.app */,
+				5D806D20244456E100B71347 /* Abyss.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -175,7 +175,7 @@
 			);
 			name = "The Abyss";
 			productName = "The Abyss";
-			productReference = 5D806D20244456E100B71347 /* The Abyss.app */;
+			productReference = 5D806D20244456E100B71347 /* Abyss.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -419,8 +419,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "desmoulin.elodie.The-Abyss";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = desmoulin.elodie.Abyss;
+				PRODUCT_NAME = Abyss;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				"Texture Atlas Maximum Size" = 2048x2048;
@@ -438,8 +438,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "desmoulin.elodie.The-Abyss";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = desmoulin.elodie.Abyss;
+				PRODUCT_NAME = Abyss;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				"Texture Atlas Maximum Size" = 2048x2048;
