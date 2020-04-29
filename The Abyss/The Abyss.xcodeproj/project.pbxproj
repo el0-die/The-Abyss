@@ -412,6 +412,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M75P84R2C5;
 				INFOPLIST_FILE = "The Abyss/Resources/Info.plist";
@@ -421,6 +422,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = desmoulin.elodie.Abyss;
 				PRODUCT_NAME = Abyss;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				"Texture Atlas Maximum Size" = 2048x2048;
@@ -431,6 +433,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = M75P84R2C5;
 				INFOPLIST_FILE = "The Abyss/Resources/Info.plist";
@@ -440,6 +443,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = desmoulin.elodie.Abyss;
 				PRODUCT_NAME = Abyss;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				"Texture Atlas Maximum Size" = 2048x2048;
