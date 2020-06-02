@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5D2335212449E4A700F967FC /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D2335202449E4A700F967FC /* GameOverScene.swift */; };
 		5D233523244C573300F967FC /* Submarine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D233522244C573300F967FC /* Submarine.swift */; };
+		5D48A27424619FB6002B3E7B /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5D48A27224619FB6002B3E7B /* DataModel.xcdatamodeld */; };
 		5D7E7C63244F46B800224A2F /* Bubbles.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5D7E7C62244F46B800224A2F /* Bubbles.sks */; };
 		5D806D24244456E100B71347 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D806D23244456E100B71347 /* AppDelegate.swift */; };
 		5D806D2A244456E100B71347 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D806D29244456E100B71347 /* GameScene.swift */; };
@@ -32,6 +33,7 @@
 /* Begin PBXFileReference section */
 		5D2335202449E4A700F967FC /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		5D233522244C573300F967FC /* Submarine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Submarine.swift; sourceTree = "<group>"; };
+		5D48A27324619FB6002B3E7B /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		5D7E7C62244F46B800224A2F /* Bubbles.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Bubbles.sks; sourceTree = "<group>"; };
 		5D806D20244456E100B71347 /* Abyss.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Abyss.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D806D23244456E100B71347 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 		5DBED7EC245425E300AA0EC4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5D48A27224619FB6002B3E7B /* DataModel.xcdatamodeld */,
 				5D806D23244456E100B71347 /* AppDelegate.swift */,
 				5D806D2D244456E100B71347 /* Main.storyboard */,
 				5D806D30244456E400B71347 /* Assets.xcassets */,
@@ -122,8 +125,8 @@
 		5DBED7EE2454266600AA0EC4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				5D7E7C62244F46B800224A2F /* Bubbles.sks */,
 				5DC9421A2444613D0085CF68 /* MyUtils.swift */,
+				5D7E7C62244F46B800224A2F /* Bubbles.sks */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				5DBED8052455C2EA00AA0EC4 /* Counter.swift in Sources */,
 				5DBED81924589A9100AA0EC4 /* Enemy.swift in Sources */,
 				5DC9421724445A980085CF68 /* MainMenuScene.swift in Sources */,
+				5D48A27424619FB6002B3E7B /* DataModel.xcdatamodeld in Sources */,
 				5D2335212449E4A700F967FC /* GameOverScene.swift in Sources */,
 				5D806D24244456E100B71347 /* AppDelegate.swift in Sources */,
 			);
@@ -472,6 +476,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5D48A27224619FB6002B3E7B /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5D48A27324619FB6002B3E7B /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 5D48A27324619FB6002B3E7B /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5D806D18244456E100B71347 /* Project object */;
 }

@@ -18,7 +18,6 @@ class Submarine {
     func setup() {
         spriteNode.position = CGPoint(x: 400, y: 400)
         spriteNode.zPosition = 100
-
     }
 
     func setupAnimation() {
@@ -88,6 +87,7 @@ class Submarine {
 
     private var animation: SKAction?
     private let movePointsPerSec: CGFloat = 480.0
+    
     private func startAnimation() {
         guard let animation = animation else { return }
         spriteNode.run(SKAction.repeatForever(animation))

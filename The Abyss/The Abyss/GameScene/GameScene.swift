@@ -52,6 +52,7 @@ class GameScene: SKScene {
         submarine.setupAnimation()
 
         setupSpawnEnemyAction(spawnTimeInSecond: 2.0)
+
         setupSpawnProjectileAction(spawnTimeInSecond: 1.0)
 
         setupBackground()
@@ -76,6 +77,33 @@ class GameScene: SKScene {
         handleTouchesEvent(touches: touches)
     }
 
+    func handlePanFrom(recognizer: UIPanGestureRecognizer) {
+        if recognizer.state != .changed {
+            return
+        }
+
+        // Handle pan here
+    }
+
+    func handleTapFrom(recognizer: UITapGestureRecognizer) {
+        if recognizer.state != .ended {
+            return
+        }
+
+        // Handle tap here
+    }
+
+    let projectile = Projectile()
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+      // 1 - Choose one of the touches to work with
+      guard let touch = touches.first else {
+        return
+      }
+      let touchLocation = touch.location(in: self)
+
+        projectile.moveAnimation(touchLocation)
+    }
+
     // MARK: - Private
 
     // Properties
@@ -97,13 +125,13 @@ class GameScene: SKScene {
     private func handleTouchesEvent(touches: Set<UITouch>) {
         guard let touch = touches.first else { return }
         let touchLocation = touch.location(in: self)
-        sceneTouched(touchLocation: touchLocation)
+//        sceneTouched(touchLocation: touchLocation)
     }
 
-    private func sceneTouched(touchLocation: CGPoint) {
-        lastTouchLocation = touchLocation
-        submarine.moveToward(location: touchLocation)
-    }
+//    private func sceneTouched(touchLocation: CGPoint) {
+//        lastTouchLocation = touchLocation
+//        submarine.moveToward(location: touchLocation)
+//    }
 
     private func setupPlayableRectangle(_ size: CGSize) {
         let screenWidth  = UIScreen.main.fixedCoordinateSpace.bounds.width / 1.03
@@ -132,8 +160,6 @@ class GameScene: SKScene {
     // MARK: Projectile
 
     private func spawnProjectile() {
-        let projectile = Projectile()
-        projectile.position = submarine.spriteNode.position
         addChild(projectile)
     }
 
@@ -141,11 +167,11 @@ class GameScene: SKScene {
         let singleSpawnProjectileAction = SKAction.run { [weak self] in
             self?.spawnProjectile()
         }
-        let waitBeforeAction = SKAction.wait(forDuration: spawnTimeInSecond)
-        let spawnProjectileActionSequence = SKAction.sequence([singleSpawnProjectileAction, waitBeforeAction])
-        let spawnProjectilesActionForever = SKAction.repeatForever(spawnProjectileActionSequence)
-
-        run(spawnProjectilesActionForever)
+//        let waitBeforeAction = SKAction.wait(forDuration: spawnTimeInSecond)
+//        let spawnProjectileActionSequence = SKAction.sequence([singleSpawnProjectileAction, waitBeforeAction])
+//        let spawnProjectilesActionForever = SKAction.repeatForever(spawnProjectileActionSequence)
+//
+//        run(spawnProjectilesActionForever)
     }
 
     // MARK: Enemy
@@ -199,11 +225,10 @@ class GameScene: SKScene {
                 }
             }
         }
-        for enemy in hitEnemies {
-            let projectile = Projectile()
-            projectile.hit(enemy: enemy, counter: counter)
-            run(projectileCollisionSound)
-        }
+//        for enemy in hitEnemies {
+//            projectile.hit(enemy: enemy, counter: counter)
+//            run(projectileCollisionSound)
+//        }
     }
    
     // MARK: Display Game's End

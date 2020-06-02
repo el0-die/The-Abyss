@@ -16,7 +16,7 @@ class Counter {
     
     // Life
     func setupLivesLabel(_ playableRect: CGRect?, _ difficultyLvl: DifficultyLevel) {
-        
+
         guard let playableRect = playableRect else { return }
         livesLabel.text = "Lives: \(difficultyLvl.numberOfLives)"
         livesLabel.fontColor = SKColor.white

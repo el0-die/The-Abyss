@@ -22,15 +22,15 @@ class DifficultyLevel {
         self.difficulty = difficulty
         switch self.difficulty {
         case .easy:
-            spawnTimeInSec = 2.0
+            spawnTimeInSec = Double.random(in: 1.5 ..< 2.5)
             numberOfKillToWin = 10
             numberOfLives = 5
         case .medium:
-            spawnTimeInSec = 1.5
+            spawnTimeInSec = Double.random(in: 1.0 ..< 2.0)
             numberOfKillToWin = 15
             numberOfLives = 4
         case .hard:
-            spawnTimeInSec = 1.0
+            spawnTimeInSec = Double.random(in: 0.5 ..< 1.5)
             numberOfKillToWin = 20
             numberOfLives = 3
         }
