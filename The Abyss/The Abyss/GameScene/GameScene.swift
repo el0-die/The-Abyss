@@ -51,6 +51,7 @@ class GameScene: SKScene {
         submarine.setup()
         submarine.setupAnimation()
 
+        setupSpawnBonusAction(spawnTimeInSecond: 60.0)
         setupSpawnEnemyAction(spawnTimeInSecond: 2.0)
 
         setupSpawnProjectileAction(spawnTimeInSecond: 1.0)
@@ -67,6 +68,7 @@ class GameScene: SKScene {
     override func didEvaluateActions() {
         checkSubmarineAndEnemyCollisions()
         checkProjectileAndEnemyCollisions()
+        checkProjectileAndBonusCollisions()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -77,32 +79,31 @@ class GameScene: SKScene {
         handleTouchesEvent(touches: touches)
     }
 
-    func handlePanFrom(recognizer: UIPanGestureRecognizer) {
-        if recognizer.state != .changed {
-            return
-        }
+//    func handlePanFrom(recognizer: UIPanGestureRecognizer) {
+//        if recognizer.state != .changed {
+//            return
+//        }
+//
+//        // Handle pan here
+//    }
+//
+//    func handleTapFrom(recognizer: UITapGestureRecognizer) {
+//        if recognizer.state != .ended {
+//            return
+//        }
+//
+//        // Handle tap here
+//    }
 
-        // Handle pan here
-    }
-
-    func handleTapFrom(recognizer: UITapGestureRecognizer) {
-        if recognizer.state != .ended {
-            return
-        }
-
-        // Handle tap here
-    }
-
-    let projectile = Projectile()
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-      // 1 - Choose one of the touches to work with
-      guard let touch = touches.first else {
-        return
-      }
-      let touchLocation = touch.location(in: self)
-
-        projectile.moveAnimation(touchLocation)
-    }
+//    let projectile = Projectile()
+//    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+//      // 1 - Choose one of the touches to work with
+//      guard let touch = touches.first else {
+//        return
+//      }
+//      let touchLocation = touch.location(in: self)
+//
+//    }
 
     // MARK: - Private
 
@@ -125,13 +126,13 @@ class GameScene: SKScene {
     private func handleTouchesEvent(touches: Set<UITouch>) {
         guard let touch = touches.first else { return }
         let touchLocation = touch.location(in: self)
-//        sceneTouched(touchLocation: touchLocation)
+        sceneTouched(touchLocation: touchLocation)
     }
 
-//    private func sceneTouched(touchLocation: CGPoint) {
-//        lastTouchLocation = touchLocation
-//        submarine.moveToward(location: touchLocation)
-//    }
+    private func sceneTouched(touchLocation: CGPoint) {
+        lastTouchLocation = touchLocation
+        submarine.moveToward(location: touchLocation)
+    }
 
     private func setupPlayableRectangle(_ size: CGSize) {
         let screenWidth  = UIScreen.main.fixedCoordinateSpace.bounds.width / 1.03
@@ -160,6 +161,8 @@ class GameScene: SKScene {
     // MARK: Projectile
 
     private func spawnProjectile() {
+        let projectile = Projectile()
+        projectile.position = submarine.spriteNode.position
         addChild(projectile)
     }
 
@@ -167,11 +170,11 @@ class GameScene: SKScene {
         let singleSpawnProjectileAction = SKAction.run { [weak self] in
             self?.spawnProjectile()
         }
-//        let waitBeforeAction = SKAction.wait(forDuration: spawnTimeInSecond)
-//        let spawnProjectileActionSequence = SKAction.sequence([singleSpawnProjectileAction, waitBeforeAction])
-//        let spawnProjectilesActionForever = SKAction.repeatForever(spawnProjectileActionSequence)
-//
-//        run(spawnProjectilesActionForever)
+        let waitBeforeAction = SKAction.wait(forDuration: spawnTimeInSecond)
+        let spawnProjectileActionSequence = SKAction.sequence([singleSpawnProjectileAction, waitBeforeAction])
+        let spawnProjectilesActionForever = SKAction.repeatForever(spawnProjectileActionSequence)
+
+        run(spawnProjectilesActionForever)
     }
 
     // MARK: Enemy
@@ -192,7 +195,26 @@ class GameScene: SKScene {
         run(spawnEnemiesActionForever)
     }
 
+    // MARK: Jellyfish Bonus
+
+    private func spawnBonus() {
+        let jellyfishBonus = JellyfishBonus(cameraRect:cameraRect)
+        addChild(jellyfishBonus)
+    }
+
+    private func setupSpawnBonusAction(spawnTimeInSecond: TimeInterval) {
+        let singleSpawnJellyfishAction = SKAction.run { [weak self] in
+            self?.spawnBonus()
+        }
+        let waitBeforeAction = SKAction.wait(forDuration: Double.random(in: 30...120))
+        let spawnJellyfishActionSequence = SKAction.sequence([singleSpawnJellyfishAction, waitBeforeAction])
+        let spawnJellyfishesActionForever = SKAction.repeatForever(spawnJellyfishActionSequence)
+
+        run(spawnJellyfishesActionForever)
+    }
+
     // MARK: Collisions
+
     // Submarine & Enemy
     private func checkSubmarineAndEnemyCollisions() {
         if submarine.invincible { return }
@@ -208,7 +230,8 @@ class GameScene: SKScene {
             run(enemyCollisionSound)
         }
     }
-       // Projectile & Enemy
+
+    // Projectile & Enemy
     private func checkProjectileAndEnemyCollisions() {
         var hitProjectile: [SKSpriteNode] = []
         enumerateChildNodes(withName: "projectile") { node, _ in
@@ -225,10 +248,36 @@ class GameScene: SKScene {
                 }
             }
         }
-//        for enemy in hitEnemies {
-//            projectile.hit(enemy: enemy, counter: counter)
-//            run(projectileCollisionSound)
-//        }
+        for enemy in hitEnemies {
+            let projectile = Projectile()
+            projectile.hit(enemy: enemy, counter: counter)
+            run(projectileCollisionSound)
+        }
+    }
+
+    // Projectile & Jellyfish
+    private func checkProjectileAndBonusCollisions() {
+        var hitProjectile: [SKSpriteNode] = []
+        enumerateChildNodes(withName: "projectile") { node, _ in
+            let projectile = node as! SKSpriteNode
+            hitProjectile.append(projectile)
+        }
+        var hitJellyfish: [SKSpriteNode] = []
+        enumerateChildNodes(withName: "jellyfish") { node, _ in
+            let jellyfish = node as! SKSpriteNode
+            for projectile in hitProjectile {
+                if node.frame.insetBy(dx: 10, dy: 10).intersects(projectile.frame) {
+                    hitJellyfish.append(jellyfish)
+                    projectile.removeFromParent()
+                }
+            }
+        }
+        for jellyfish in hitJellyfish {
+            let projectile = Projectile()
+            projectile.hitBonus(bonus: jellyfish, difficultyLevel: difficultyLvl, counter: counter)
+            run(projectileCollisionSound)
+        }
+        
     }
    
     // MARK: Display Game's End

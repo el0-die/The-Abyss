@@ -17,6 +17,7 @@
 		5D806D2F244456E100B71347 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D2D244456E100B71347 /* Main.storyboard */; };
 		5D806D31244456E400B71347 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D30244456E400B71347 /* Assets.xcassets */; };
 		5D806D34244456E400B71347 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D806D32244456E400B71347 /* LaunchScreen.storyboard */; };
+		5D8E05B0248A6A47003B745D /* JellyfishBonus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8E05AF248A6A47003B745D /* JellyfishBonus.swift */; };
 		5D9ED900248806880056E2C2 /* ConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9ED8FF248806880056E2C2 /* ConnectViewController.swift */; };
 		5D9ED902248806AD0056E2C2 /* SubscribeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D9ED901248806AD0056E2C2 /* SubscribeViewController.swift */; };
 		5DBED7FB24546E2400AA0EC4 /* DifficultyLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DBED7FA24546E2400AA0EC4 /* DifficultyLevel.swift */; };
@@ -45,6 +46,7 @@
 		5D806D30244456E400B71347 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D806D33244456E400B71347 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D806D35244456E400B71347 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5D8E05AF248A6A47003B745D /* JellyfishBonus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JellyfishBonus.swift; sourceTree = "<group>"; };
 		5D9ED8FF248806880056E2C2 /* ConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectViewController.swift; sourceTree = "<group>"; };
 		5D9ED901248806AD0056E2C2 /* SubscribeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeViewController.swift; sourceTree = "<group>"; };
 		5DBED7FA24546E2400AA0EC4 /* DifficultyLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DifficultyLevel.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				5D233522244C573300F967FC /* Submarine.swift */,
 				5DBED81C2459650A00AA0EC4 /* Projectile.swift */,
 				5DBED81824589A9100AA0EC4 /* Enemy.swift */,
+				5D8E05AF248A6A47003B745D /* JellyfishBonus.swift */,
 				5DBED8042455C2EA00AA0EC4 /* Counter.swift */,
 				5D806D29244456E100B71347 /* GameScene.swift */,
 			);
@@ -275,6 +278,7 @@
 			files = (
 				5D806D2A244456E100B71347 /* GameScene.swift in Sources */,
 				5DBED81D2459650A00AA0EC4 /* Projectile.swift in Sources */,
+				5D8E05B0248A6A47003B745D /* JellyfishBonus.swift in Sources */,
 				5D233523244C573300F967FC /* Submarine.swift in Sources */,
 				5D9ED902248806AD0056E2C2 /* SubscribeViewController.swift in Sources */,
 				5DC9421B2444613D0085CF68 /* MyUtils.swift in Sources */,

@@ -13,21 +13,16 @@ class ConnectViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: passwordTextField)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: passwordTextField)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            
             if self.view.frame.origin.y == 0 {
-                if passwordTextField.isSelected {
-                self.view.frame.origin.y -= keyboardSize.height
+                self.view.frame.origin.y -= (keyboardSize.height - 100)
             }
-//            } else {
-//                return
-            }
-    }
+        }
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
@@ -43,7 +38,6 @@ class ConnectViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-
     
 }
 
